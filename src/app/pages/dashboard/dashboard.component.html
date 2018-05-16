@@ -1,33 +1,57 @@
 <mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <h3>Centro</h3>
-    <mat-list role="list">
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>folder</mat-icon>Cursos
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>people</mat-icon>Alumnos
-      </mat-list-item>
-    </mat-list>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
 
-    <h3>Mensajería</h3>
-    <mat-list role="list">
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>create</mat-icon>Autorizaciones
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>content_paste</mat-icon>Circulares
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>poll</mat-icon>Encuestas
-      </mat-list-item>
-    </mat-list>
-  </mat-drawer>
+      <h3>Centro</h3>
+      <mat-list role="list">
+        <mat-list-item class="cursor" role="listitem">
+          <mat-icon mat-list-icon>folder</mat-icon>
+          Cursos
+        </mat-list-item>
+        <mat-list-item class="cursor" role="listitem">
+          <mat-icon mat-list-icon>people</mat-icon>
+          Alumnos
+        </mat-list-item>
+      </mat-list>
 
-  <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle()">
-      <mat-icon mat-list-icon>view_headline</mat-icon>
-    </button>
+      <h3>Mensajería</h3>
+      <mat-list role="list">
+        <mat-list-item class="cursor" role="listitem">
+          <mat-icon mat-list-icon>create</mat-icon>
+          Autorizaciones
+        </mat-list-item>
+        <mat-list-item class="cursor" role="listitem">
+          <mat-icon mat-list-icon>content_paste</mat-icon>
+          Circulares
+        </mat-list-item>
+        <mat-list-item class="cursor" role="listitem">
+          <mat-icon mat-list-icon>poll</mat-icon>
+          Encuestas
+        </mat-list-item>
+      </mat-list>
+    </mat-drawer>
+
+  <mat-drawer-content>
+    <div>
+    <mat-toolbar>
+      <div (click)="drawer.toggle()">
+        <mat-icon class="size-icon cursor" mat-list-icon>view_headline</mat-icon>
+      </div>
+      <div class="linea-vertical"></div>
+      <span class="example-spacer"></span>
+      <div class="cursor">
+        <mat-icon mat-list-icon matTooltip="Cerrar sesión" [matTooltipPosition]="'left'" (click)="logout()">input</mat-icon>
+      </div>
+    </mat-toolbar>
   </div>
 
+    <div>
+      <app-courses></app-courses>
+    </div>
+  </mat-drawer-content>
+
+
+
+
+
 </mat-drawer-container>
+

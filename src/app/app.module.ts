@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import {LoginModule} from './pages/login/login.module';
 import {appRoutingProviders, routing} from './app.routing';
 import {DashboardModule} from './pages/dashboard/dashboard.module';
+import {HttpUsingFormDataService} from './services/http/http.service';
+import {HttpClientModule} from '@angular/common/http';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,7 @@ import {DashboardModule} from './pages/dashboard/dashboard.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     LoginModule,
     DashboardModule,
     BsDropdownModule.forRoot(),
@@ -24,7 +28,10 @@ import {DashboardModule} from './pages/dashboard/dashboard.module';
     ModalModule.forRoot(),
     routing,
   ],
-  providers: [appRoutingProviders],
+  providers: [
+    appRoutingProviders,
+    HttpUsingFormDataService
+  ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]
 })

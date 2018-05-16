@@ -1,17 +1,19 @@
 <body class="text-center">
-<form class="form-signin">
+<form class="form-signin" name="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
   <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
   <h1 class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
-  <label for="inputEmail" class="sr-only">Nombre de usuario</label>
-  <input type="text" id="inputEmail" class="form-control" placeholder="Nombre de usuario" required autofocus>
-  <label for="inputPassword" class="sr-only">Contraseña</label>
-  <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+  <mat-form-field class="mat-form-width">
+    <input matInput placeholder="Nombre de usuario" formControlName="username" [(ngModel)]="loginForm['username']">
+  </mat-form-field>
+  <mat-form-field class="mat-form-width">
+    <input matInput type="password" placeholder="Contraseña" formControlName="password" [(ngModel)]="loginForm['password']">
+  </mat-form-field>
   <div class="checkbox mb-3">
     <label>
       <input type="checkbox" value="remember-me"> Recordar contraseña
     </label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+  <button class="mat-raised-button button-width" type="submit" [disabled]="loginForm.invalid">ENTRAR</button>
 </form>
 </body>
 

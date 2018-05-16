@@ -37,3 +37,14 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.mat-form-width{
+  width: 240px !important;
+}
+
+.button-width{
+  width: 120px;
+  font-size: 18px;
+  background-color: darkcyan;
+  color: white;
+}
