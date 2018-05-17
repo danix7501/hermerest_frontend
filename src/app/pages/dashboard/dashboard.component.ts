@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-    if (localStorage.getItem('rol') !== 'administrador') {
+    if (localStorage.getItem('rol') !== 'administrator') {
       this.router.navigate(['/login']);
     }
 

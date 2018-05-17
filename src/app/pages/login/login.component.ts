@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
     this.http.post('/login', this.loginForm).subscribe((resp: any) => {
       if (resp.success) {
 
-        console.log(1, resp);
         const token = resp.content;
         const decodeToken = new JwtHelper().decodeToken(token);
 
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', token);
 
         if (localStorage.getItem('rol') === 'administrator') {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['dashboard']);
         }
       }
     });
