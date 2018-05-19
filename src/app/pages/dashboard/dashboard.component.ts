@@ -8,10 +8,15 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  showComponent: any;
+  idCourse: any;
+  idStudent: any;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
 
+    this.showComponent = 1;
     if (localStorage.getItem('rol') !== 'administrator') {
       this.router.navigate(['/login']);
     }
@@ -19,11 +24,19 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
-
     localStorage.removeItem('rol');
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
+  }
 
+  hideCoursesComponent(event) {
+    this.idCourse = event.id;
+    this.showComponent = 2;
+  }
+
+  hideStudentsComponent(event) {
+    this.idStudent = event.id;
+    this.showComponent = 3;
   }
 
 }

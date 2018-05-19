@@ -44,9 +44,18 @@
     </mat-toolbar>
   </div>
 
-    <div>
-      <app-courses></app-courses>
+    <div *ngIf="showComponent == 1">
+      <app-courses (update)="hideCoursesComponent($event)"></app-courses>
     </div>
+
+    <div *ngIf="showComponent == 2">
+      <app-students idCourse="{{idCourse}}" (update)="hideStudentsComponent($event)"></app-students>
+    </div>
+
+    <div *ngIf="showComponent == 3">
+      <app-profile-student idStudent="{{idStudent}}"></app-profile-student>
+    </div>
+
   </mat-drawer-content>
 
 </mat-drawer-container>

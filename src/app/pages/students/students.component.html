@@ -2,24 +2,24 @@
 
   <mat-table #table [dataSource]="dataSource" matSort>
 
-    <!-- nameCourse Column -->
-    <ng-container matColumnDef="nameCourse">
+    <!-- name Column -->
+    <ng-container matColumnDef="name">
       <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
       <mat-cell mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
-    <!-- numberOfStudents Column -->
-    <ng-container matColumnDef="numberOfStudents">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> NºAlumnos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.numberOfStudents}} </mat-cell>
+    <!-- surname Column -->
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.surname}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row" style="display:flex !important; justify-content:flex-end !important;">
-        <button  mat-raised-button aria-label="Editar" class="button-margin" (click)="seeStudents(row)">Ver </button>
-        <button  mat-raised-button aria-label="Borrar" class="button-margin" color="warn" (click)="deleteCourse(row)">Borrar
+        <button  mat-raised-button aria-label="Editar" class="button-margin" (click)="seeStudent(row)">Ver </button>
+        <button  mat-raised-button aria-label="Borrar" class="button-margin" color="warn" (click)="deleteStudent(row)">Borrar
         </button>
       </mat-cell>
     </ng-container>

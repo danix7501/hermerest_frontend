@@ -11,7 +11,7 @@ import {appRoutingProviders, routing} from './app.routing';
 import {DashboardModule} from './pages/dashboard/dashboard.module';
 import {HttpUsingFormDataService} from './services/http/http.service';
 import {HttpClientModule} from '@angular/common/http';
-import { CoursesComponent } from './pages/courses/courses.component';
+import {StudentsModule} from './pages/students/students.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { CoursesComponent } from './pages/courses/courses.component';
     HttpClientModule,
     LoginModule,
     DashboardModule,
+    StudentsModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     NgbModule.forRoot(),

@@ -1,0 +1,16 @@
+.border-card{
+  border: 1px solid black;
+  margin: 25px;
+  height: 300px;
+}
+
+header{
+  padding: 10px;
+  font-size: 17px;
+  color: white;
+  background-color: darkcyan;
+}
+
+.margin-info{
+  margin: 25px;
+}
