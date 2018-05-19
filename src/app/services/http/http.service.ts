@@ -8,6 +8,7 @@ import {RequestMethod, RequestOptions} from '@angular/http';
 export class HttpUsingFormDataService {
 
   public baseUrl = 'http://localhost/hermerest_backend/web/app_dev.php';
+  // public baseUrl = 'http://localhost/hermerest_backend/web';
   headers: any;
 
   constructor(private http: HttpClient) {
