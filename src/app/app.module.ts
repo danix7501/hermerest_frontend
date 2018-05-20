@@ -15,6 +15,8 @@ import {StudentsModule} from './pages/students/students.module';
 import {DialogDeleteComponent} from './pages/dialog-delete/dialog-delete.component';
 import {DialogDeleteModule} from './pages/dialog-delete/dialog-delete.module';
 import {ToastrModule} from 'ngx-toastr';
+import {DialogAddCourseModule} from './pages/dialog-add-course/dialog-add-course.module';
+import {DialogAddCourseComponent} from './pages/dialog-add-course/dialog-add-course.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import {ToastrModule} from 'ngx-toastr';
     DashboardModule,
     StudentsModule,
     DialogDeleteModule,
+    DialogAddCourseModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -38,7 +41,7 @@ import {ToastrModule} from 'ngx-toastr';
     appRoutingProviders,
     HttpUsingFormDataService
   ],
-  entryComponents: [DialogDeleteComponent],
+  entryComponents: [DialogDeleteComponent, DialogAddCourseComponent],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]
 })

@@ -24,6 +24,6 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatTableModule,
     MatFormFieldModule,
     CdkTableModule,
-  ]
+  ],
 })
 export class CoursesModule { }

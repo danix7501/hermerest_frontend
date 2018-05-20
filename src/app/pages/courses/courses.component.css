@@ -7,6 +7,10 @@
   margin: 25px;
 }
 
+.example-spacer {
+  flex: 1 1 auto;
+}
+
 .example-header {
   min-height: 64px;
   padding: 8px 24px 0;
@@ -22,5 +26,9 @@
 
 .size-title{
   font-size: 35px;
+  margin: 25px;
+}
+
+.size-button{
   margin: 25px;
 }

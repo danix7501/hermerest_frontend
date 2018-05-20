@@ -3,6 +3,7 @@ import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {JwtHelper} from 'angular2-jwt';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogDeleteComponent} from '../dialog-delete/dialog-delete.component';
+import {DialogAddCourseComponent} from '../dialog-add-course/dialog-add-course.component';
 
 
 @Component({
@@ -10,11 +11,13 @@ import {DialogDeleteComponent} from '../dialog-delete/dialog-delete.component';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
+
 export class CoursesComponent implements OnInit {
 
   idAdministrator: any;
   courses: any[] = [];
   nameCentre: any;
+  idCentre: any;
 
   displayedColumns = ['nameCourse', 'numberOfStudents', 'actions'];
   dataSource: any;
@@ -35,7 +38,8 @@ export class CoursesComponent implements OnInit {
   getAdministrator() {
     this.http.get('/administrators/' + this.idAdministrator).subscribe((resp: any) => {
       this.nameCentre = resp.content.centre.name;
-      this.http.get('/centres/' + resp.content.centre.id + '/courses').subscribe((resp2: any) => {
+      this.idCentre = resp.content.centre.id;
+      this.http.get('/centres/' + this.idCentre + '/courses').subscribe((resp2: any) => {
         if (resp2.content) {
           for (let i = 0; i < resp2.content.courses.length; i++) {
             this.courses.push(resp2.content.courses[i]);
@@ -50,6 +54,16 @@ export class CoursesComponent implements OnInit {
 
   seeStudents(course) {
     this.change.emit(course);
+  }
+
+
+  addCourse() {
+    console.log('añadir curso');
+    this.dialog.open(DialogAddCourseComponent, {
+      data: {
+        idCentre: this.idCentre
+      }
+    });
   }
 
   deleteCourse(course) {
