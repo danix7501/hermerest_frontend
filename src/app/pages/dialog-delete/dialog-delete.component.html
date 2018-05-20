@@ -1,0 +1,11 @@
+<header>
+  <h3 style="text-align: center">{{data.title}}</h3>
+</header>
+<div class="example-container">
+
+  <h5 cdkFocusRegionstart>{{data.question}}</h5>
+</div>
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-button id="borrar-btn" (click)="onNoClick('cancel')">Cancelar</button>
+  <button mat-button color="warn" (click)="delete()">Eliminar</button>
+</div>

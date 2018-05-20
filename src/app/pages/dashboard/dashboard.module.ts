@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
-  MatButtonModule,
+  MatButtonModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatListModule,
@@ -41,6 +41,7 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
     MatButtonModule,
     FlexLayoutModule,
     FlexModule,
+    MatDialogModule,
   ]
 
 })

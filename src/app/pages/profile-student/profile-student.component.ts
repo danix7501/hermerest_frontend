@@ -27,7 +27,6 @@ export class ProfileStudentComponent implements OnInit {
 
   getStundent() {
     this.http.get('/students/' +  this.idStudent).subscribe((resp: any) => {
-      console.log(resp);
       this.nameStudent = resp.content.name;
       this.surnameStudent = resp.content.surname;
       this.courseStudent = resp.content.course.name;
@@ -36,8 +35,7 @@ export class ProfileStudentComponent implements OnInit {
 
   getParentStudent() {
     this.http.get('/students/' +  this.idStudent + '/parents').subscribe((resp: any) => {
-      console.log(resp.content.parents);
-      if (resp.content){
+      if (resp.content) {
         for (let i = 0; i < resp.content.parents.length; i++) {
           this.parents.push(resp.content.parents[i]);
         }

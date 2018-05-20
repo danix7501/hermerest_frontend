@@ -2,6 +2,9 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@import "~ngx-toastr/toastr.css";
+
+
 body {
   font-family: Roboto;
 }

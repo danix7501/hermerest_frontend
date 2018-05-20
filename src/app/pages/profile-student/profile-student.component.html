@@ -30,6 +30,16 @@
     <header>
       Padres/Madres/Tutores legales
     </header>
+    <div fxLayout="column" class="margin-info" *ngIf="parents.length == 0">
+      <div>
+        <div class="h4">Nombre</div>
+        <div>Sin especificar</div>
+      </div>
+      <div>
+        <div class="h4">Teléfono</div>
+        <div>Sin especificar</div>
+      </div>
+    </div>
     <div fxLayout="column" class="margin-info" *ngFor="let parent of parents">
       <div>
         <div class="h4">Nombre</div>

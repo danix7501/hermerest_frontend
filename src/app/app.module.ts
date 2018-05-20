@@ -12,6 +12,9 @@ import {DashboardModule} from './pages/dashboard/dashboard.module';
 import {HttpUsingFormDataService} from './services/http/http.service';
 import {HttpClientModule} from '@angular/common/http';
 import {StudentsModule} from './pages/students/students.module';
+import {DialogDeleteComponent} from './pages/dialog-delete/dialog-delete.component';
+import {DialogDeleteModule} from './pages/dialog-delete/dialog-delete.module';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import {StudentsModule} from './pages/students/students.module';
     LoginModule,
     DashboardModule,
     StudentsModule,
+    DialogDeleteModule,
+    ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     NgbModule.forRoot(),
@@ -33,6 +38,7 @@ import {StudentsModule} from './pages/students/students.module';
     appRoutingProviders,
     HttpUsingFormDataService
   ],
+  entryComponents: [DialogDeleteComponent],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]
 })

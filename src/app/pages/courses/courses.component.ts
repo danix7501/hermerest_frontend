@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {JwtHelper} from 'angular2-jwt';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Router} from '@angular/router';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {DialogDeleteComponent} from '../dialog-delete/dialog-delete.component';
 
 
 @Component({
@@ -25,14 +25,11 @@ export class CoursesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private http: HttpUsingFormDataService, private router: Router) {
-    this.idAdministrator = new JwtHelper().decodeToken(localStorage.getItem('token')).id;
-    this.getAdministrator();
-  }
+  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog) {}
 
   ngOnInit() {
-
-
+    this.idAdministrator = new JwtHelper().decodeToken(localStorage.getItem('token')).id;
+    this.getAdministrator();
   }
 
   getAdministrator() {
@@ -51,13 +48,28 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  seeStudents(course){
-    console.log(course);
+  seeStudents(course) {
     this.change.emit(course);
   }
 
-  deleteCourse(course){
-
+  deleteCourse(course) {
+    this.dialog.open(DialogDeleteComponent, {
+      data: {
+        url: '/courses/' + course.id,
+        title: 'Eliminar curso',
+        messageSuccess: 'Curso eliminado correctamente',
+        messageError: 'Ha ocurrido un problema al intentar eliminar el curso',
+        question: '¿Esta seguro que quiere eliminar este curso?'
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp === 'delete') {
+        const index = this.courses.indexOf(course);
+        this.courses.splice(index, 1);
+        this.dataSource = new MatTableDataSource(this.courses);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
 }
