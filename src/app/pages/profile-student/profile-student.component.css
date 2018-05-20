@@ -1,7 +1,6 @@
 .border-card{
-  border: 1px solid black;
   margin: 25px;
-  height: 300px;
+  height: auto;
 }
 
 header{
@@ -13,4 +12,15 @@ header{
 
 .margin-info{
   margin: 25px;
+}
+
+.arrow-back{
+  font-size: 40px !important;
+  margin: 25px;
+  cursor: pointer;
+}
+
+.size-title{
+  font-size: 35px;
+  margin-top: 10px;
 }

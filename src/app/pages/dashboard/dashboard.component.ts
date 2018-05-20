@@ -36,7 +36,15 @@ export class DashboardComponent implements OnInit {
 
   hideStudentsComponent(event) {
     this.idStudent = event.id;
-    this.showComponent = 3;
+    if (event === 1) {
+      this.showComponent = 1;
+    } else {
+      this.showComponent = 3;
+    }
+  }
+
+  hideProfileStudentComponent(event) {
+    this.showComponent = event;
   }
 
 }

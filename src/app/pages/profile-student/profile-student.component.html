@@ -1,4 +1,12 @@
-<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
+<div fxLayout="row">
+  <div>
+    <mat-icon mat-list-icon class="arrow-back" matTooltip="Volver" (click)="back()">arrow_back</mat-icon>
+  </div>
+  <div fxLayoutAlign="center center" class="size-title">
+    Alumno: {{nameStudent}} {{surnameStudent}}
+  </div>
+</div>
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center start">
   <div fxLayout="column" fxFlex="25" class="border-card mat-elevation-z8">
     <header>
       Información del alumno
@@ -22,14 +30,14 @@
     <header>
       Padres/Madres/Tutores legales
     </header>
-    <div fxLayout="column" class="margin-info">
+    <div fxLayout="column" class="margin-info" *ngFor="let parent of parents">
       <div>
         <div class="h4">Nombre</div>
-        <div>Padre</div>
+        <div>{{parent.name}}</div>
       </div>
       <div>
         <div class="h4">Teléfono</div>
-        <div>650182206</div>
+        <div>{{parent.telephone}}</div>
       </div>
     </div>
   </div>

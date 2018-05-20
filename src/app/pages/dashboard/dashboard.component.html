@@ -53,7 +53,7 @@
     </div>
 
     <div *ngIf="showComponent == 3">
-      <app-profile-student idStudent="{{idStudent}}"></app-profile-student>
+      <app-profile-student idStudent="{{idStudent}}" (update)="hideProfileStudentComponent($event)"></app-profile-student>
     </div>
 
   </mat-drawer-content>

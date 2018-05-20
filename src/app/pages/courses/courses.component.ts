@@ -14,6 +14,7 @@ export class CoursesComponent implements OnInit {
 
   idAdministrator: any;
   courses: any[] = [];
+  nameCentre: any;
 
   displayedColumns = ['nameCourse', 'numberOfStudents', 'actions'];
   dataSource: any;
@@ -36,6 +37,7 @@ export class CoursesComponent implements OnInit {
 
   getAdministrator() {
     this.http.get('/administrators/' + this.idAdministrator).subscribe((resp: any) => {
+      this.nameCentre = resp.content.centre.name;
       this.http.get('/centres/' + resp.content.centre.id + '/courses').subscribe((resp2: any) => {
         if (resp2.content) {
           for (let i = 0; i < resp2.content.courses.length; i++) {

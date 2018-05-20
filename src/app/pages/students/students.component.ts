@@ -10,6 +10,8 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 export class StudentsComponent implements OnInit {
 
   students: any[] = [];
+  nameCourse: any;
+
 
   displayedColumns = ['name', 'surname', 'actions'];
   dataSource: any;
@@ -28,11 +30,13 @@ export class StudentsComponent implements OnInit {
 
   getStudentsOfCourse() {
     this.http.get('/courses/' + this.idCourse + '/students').subscribe( (resp: any) => {
-      console.log(1, resp);
+      console.log(5, resp);
       if (resp.content) {
         for (let i = 0; i < resp.content.students.length; i++) {
           this.students.push(resp.content.students[i]);
         }
+        this.nameCourse = this.students[0].course.name;
+
         this.dataSource = new MatTableDataSource(this.students);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -47,6 +51,10 @@ export class StudentsComponent implements OnInit {
 
   deleteStudent(student) {
     console.log(2, student);
+  }
+
+  back() {
+    this.change.emit(1);
   }
 
 }

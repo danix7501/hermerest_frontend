@@ -1,3 +1,11 @@
+<div fxLayout="row">
+  <div>
+    <mat-icon mat-list-icon class="arrow-back" matTooltip="Volver" (click)="back()">arrow_back</mat-icon>
+  </div>
+  <div fxLayoutAlign="center center" class="size-title">
+    Curso: {{nameCourse}}
+  </div>
+</div>
 <div class="example-container mat-elevation-z8">
 
   <mat-table #table [dataSource]="dataSource" matSort>
