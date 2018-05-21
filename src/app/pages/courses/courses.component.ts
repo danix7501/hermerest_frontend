@@ -56,12 +56,17 @@ export class CoursesComponent implements OnInit {
     this.change.emit(course);
   }
 
-
   addCourse() {
-    console.log('añadir curso');
     this.dialog.open(DialogAddCourseComponent, {
       data: {
         idCentre: this.idCentre
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp !== 'cancel') {
+        this.courses.push(resp);
+        this.dataSource = new MatTableDataSource(this.courses);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     });
   }

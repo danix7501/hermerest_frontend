@@ -10,6 +10,8 @@ export class DashboardComponent implements OnInit {
 
   showComponent: any;
   idCourse: any;
+  idCentre: any;
+  nameCourse: any;
   idStudent: any;
 
   constructor(private router: Router) { }
@@ -31,6 +33,8 @@ export class DashboardComponent implements OnInit {
 
   hideCoursesComponent(event) {
     this.idCourse = event.id;
+    this.idCentre = event.centre.id;
+    this.nameCourse = event.name;
     this.showComponent = 2;
   }
 

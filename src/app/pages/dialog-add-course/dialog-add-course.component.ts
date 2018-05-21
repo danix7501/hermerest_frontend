@@ -30,7 +30,7 @@ export class DialogAddCourseComponent implements OnInit {
     this.http.post('/courses', this.addCourseForm).subscribe((resp: any) => {
       if (resp.success) {
         this.toastr.success('', 'Curso añadido correctamente' , {positionClass : 'toast-bottom-right'});
-        this.onNoClick();
+        this.onNoClick(resp.content);
       } else {
         this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
       }
@@ -39,8 +39,8 @@ export class DialogAddCourseComponent implements OnInit {
     );
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(course): void {
+    this.dialogRef.close(course);
   }
 
 }

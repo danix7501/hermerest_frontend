@@ -49,7 +49,7 @@
     </div>
 
     <div *ngIf="showComponent == 2">
-      <app-students idCourse="{{idCourse}}" (update)="hideStudentsComponent($event)"></app-students>
+      <app-students nameCourse="{{nameCourse}}" idCourse="{{idCourse}}" idCentre="{{idCentre}}" (update)="hideStudentsComponent($event)"></app-students>
     </div>
 
     <div *ngIf="showComponent == 3">

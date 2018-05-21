@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpUsingFormDataService} from '../../services/http/http.service';
+import {MatDialog} from '@angular/material';
+import {DialogEditStudentComponent} from '../dialog-edit-student/dialog-edit-student.component';
 
 @Component({
   selector: 'app-profile-student',
@@ -18,7 +20,7 @@ export class ProfileStudentComponent implements OnInit {
   @Output('update') change = new EventEmitter();
 
 
-  constructor(private http: HttpUsingFormDataService) { }
+  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getStundent();
@@ -41,6 +43,26 @@ export class ProfileStudentComponent implements OnInit {
         }
       }
     });
+  }
+
+  editStudent() {
+    this.dialog.open(DialogEditStudentComponent, {
+      data: {
+        nameStudent: this.nameStudent,
+        surnameStudent: this.surnameStudent,
+        idStudent: this.idStudent
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp !== 'cancel') {
+        this.nameStudent = resp.name;
+        this.surnameStudent = resp.surname;
+        this.courseStudent = resp.course.name;
+      }
+    });
+  }
+
+  asociatedParents() {
+
   }
 
   back() {

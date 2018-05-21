@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogDeleteComponent} from '../dialog-delete/dialog-delete.component';
+import {DialogAddStudentComponent} from '../dialog-add-student/dialog-add-student.component';
 
 @Component({
   selector: 'app-students',
@@ -11,8 +12,6 @@ import {DialogDeleteComponent} from '../dialog-delete/dialog-delete.component';
 export class StudentsComponent implements OnInit {
 
   students: any[] = [];
-  nameCourse: any;
-
 
   displayedColumns = ['name', 'surname', 'actions'];
   dataSource: any;
@@ -20,6 +19,8 @@ export class StudentsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @Input() idCourse: any;
+  @Input() idCentre: any;
+  @Input() nameCourse: any;
   @Output('update') change = new EventEmitter();
 
 
@@ -35,7 +36,6 @@ export class StudentsComponent implements OnInit {
         for (let i = 0; i < resp.content.students.length; i++) {
           this.students.push(resp.content.students[i]);
         }
-        this.nameCourse = this.students[0].course.name;
 
         this.dataSource = new MatTableDataSource(this.students);
         this.dataSource.paginator = this.paginator;
@@ -46,6 +46,22 @@ export class StudentsComponent implements OnInit {
 
   seeStudent(student) {
     this.change.emit(student);
+  }
+
+  addStudent() {
+    this.dialog.open(DialogAddStudentComponent, {
+      data: {
+        idCourse: this.idCourse,
+        idCentre: this.idCentre
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp !== 'cancel') {
+        this.students.push(resp);
+        this.dataSource = new MatTableDataSource(this.students);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
   deleteStudent(student) {

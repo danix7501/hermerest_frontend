@@ -24,3 +24,11 @@ header{
   font-size: 35px;
   margin-top: 10px;
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.size-button{
+  margin: 25px;
+}

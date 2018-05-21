@@ -5,6 +5,10 @@
   <div fxLayoutAlign="center center" class="size-title">
     Alumno: {{nameStudent}} {{surnameStudent}}
   </div>
+  <span class="example-spacer"></span>
+  <button mat-raised-button class="size-button" (click)="editStudent()">Editar alumno</button>
+  <button mat-raised-button class="size-button" color="primary" (click)="asociatedParents()">Asociar padres</button>
+
 </div>
 <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center start">
   <div fxLayout="column" fxFlex="25" class="border-card mat-elevation-z8">
@@ -13,16 +17,19 @@
     </header>
     <div fxLayout="column" class="margin-info">
       <div>
-        <div class="h4">Nombre</div>
-        <div>{{nameStudent}}</div>
+        <div>
+          <span class="h5">Nombre: </span>{{nameStudent}}
+        </div>
       </div>
       <div>
-        <div class="h4">Apellidos</div>
-        <div>{{surnameStudent}}</div>
+        <div>
+          <span class="h5">Apellidos: </span>{{surnameStudent}}
+        </div>
       </div>
       <div>
-        <div class="h4">Curso</div>
-        <div>{{courseStudent}}</div>
+        <div>
+          <span class="h5">Apellidos: </span>{{courseStudent}}
+        </div>
       </div>
     </div>
   </div>
@@ -32,22 +39,26 @@
     </header>
     <div fxLayout="column" class="margin-info" *ngIf="parents.length == 0">
       <div>
-        <div class="h4">Nombre</div>
-        <div>Sin especificar</div>
+        <div>
+          <span class="h5">Nombre: </span>Sin especificar
+        </div>
       </div>
       <div>
-        <div class="h4">Teléfono</div>
-        <div>Sin especificar</div>
+        <div>
+          <span class="h5">Teléfono: </span>Sin especificar
+        </div>
       </div>
     </div>
     <div fxLayout="column" class="margin-info" *ngFor="let parent of parents">
       <div>
-        <div class="h4">Nombre</div>
-        <div>{{parent.name}}</div>
+        <div>
+          <span class="h5">Nombre: </span>{{parent.name}}
+        </div>
       </div>
       <div>
-        <div class="h4">Teléfono</div>
-        <div>{{parent.telephone}}</div>
+        <div>
+          <span class="h5">Teléfono: </span>{{parent.telephone}}
+        </div>
       </div>
     </div>
   </div>

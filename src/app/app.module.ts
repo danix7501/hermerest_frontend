@@ -17,6 +17,10 @@ import {DialogDeleteModule} from './pages/dialog-delete/dialog-delete.module';
 import {ToastrModule} from 'ngx-toastr';
 import {DialogAddCourseModule} from './pages/dialog-add-course/dialog-add-course.module';
 import {DialogAddCourseComponent} from './pages/dialog-add-course/dialog-add-course.component';
+import { DialogAddStudentComponent } from './pages/dialog-add-student/dialog-add-student.component';
+import {DialogAddStudentModule} from './pages/dialog-add-student/dialog-add-student.module';
+import { DialogEditStudentComponent } from './pages/dialog-edit-student/dialog-edit-student.component';
+import {DialogEditStudentModule} from './pages/dialog-edit-student/dialog-edit-student.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,8 @@ import {DialogAddCourseComponent} from './pages/dialog-add-course/dialog-add-cou
     StudentsModule,
     DialogDeleteModule,
     DialogAddCourseModule,
+    DialogAddStudentModule,
+    DialogEditStudentModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -41,7 +47,12 @@ import {DialogAddCourseComponent} from './pages/dialog-add-course/dialog-add-cou
     appRoutingProviders,
     HttpUsingFormDataService
   ],
-  entryComponents: [DialogDeleteComponent, DialogAddCourseComponent],
+  entryComponents: [
+    DialogDeleteComponent,
+    DialogAddCourseComponent,
+    DialogAddStudentComponent,
+    DialogEditStudentComponent
+  ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]
 })
