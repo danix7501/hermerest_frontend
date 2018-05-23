@@ -1,0 +1,18 @@
+<header>
+  <h3 style="text-align: center">Asociar padres</h3>
+</header>
+<form class="example-container" name="editStudentForm" [formGroup]="associatedParents">
+  <mat-form-field>
+    <input matInput placeholder="Número de teléfono" formControlName="telephone" [(ngModel)]="associatedParents['telephone']" (input)="filterByTelephone()">
+    <mat-error>
+      El número de telefono es obligatorio
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Nombre y apellidos" formControlName="name" readonly="true" [(ngModel)]="associatedParents['name']">
+  </mat-form-field>
+</form>
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-button type="button" (click)="onNoClick('cancel')">Cancelar</button>
+  <button mat-button color="primary" type="submit" [disabled]="associatedParents.invalid" (click)="associated()">Asociar</button>
+</div>

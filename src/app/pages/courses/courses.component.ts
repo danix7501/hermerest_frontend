@@ -4,6 +4,7 @@ import {JwtHelper} from 'angular2-jwt';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogDeleteComponent} from '../dialog-delete/dialog-delete.component';
 import {DialogAddCourseComponent} from '../dialog-add-course/dialog-add-course.component';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class CoursesComponent implements OnInit {
   courses: any[] = [];
   nameCentre: any;
   idCentre: any;
+  fileToUpload: any;
+  nameFile: any;
 
   displayedColumns = ['nameCourse', 'numberOfStudents', 'actions'];
   dataSource: any;
@@ -28,7 +31,7 @@ export class CoursesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog) {}
+  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.idAdministrator = new JwtHelper().decodeToken(localStorage.getItem('token')).id;
@@ -39,16 +42,21 @@ export class CoursesComponent implements OnInit {
     this.http.get('/administrators/' + this.idAdministrator).subscribe((resp: any) => {
       this.nameCentre = resp.content.centre.name;
       this.idCentre = resp.content.centre.id;
-      this.http.get('/centres/' + this.idCentre + '/courses').subscribe((resp2: any) => {
-        if (resp2.content) {
-          for (let i = 0; i < resp2.content.courses.length; i++) {
-            this.courses.push(resp2.content.courses[i]);
-          }
-          this.dataSource = new MatTableDataSource(this.courses);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+      this.getCourses(this.idCentre);
+    });
+  }
+
+  getCourses(idCentre) {
+    this.http.get('/centres/' + idCentre + '/courses').subscribe((resp2: any) => {
+      this.courses = [];
+      if (resp2.content) {
+        for (let i = 0; i < resp2.content.courses.length; i++) {
+          this.courses.push(resp2.content.courses[i]);
         }
-      });
+        this.dataSource = new MatTableDataSource(this.courses);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
     });
   }
 
@@ -89,6 +97,27 @@ export class CoursesComponent implements OnInit {
         this.dataSource.sort = this.sort;
       }
     });
+  }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.nameFile = files.item(0).name;
+    const formData = new FormData();
+    formData.append('file', this.fileToUpload, this.fileToUpload.name);
+    formData.append('centre', this.idCentre);
+
+    if (this.fileToUpload !== null) {
+      this.http.postFile('/courses/importCourse', formData).subscribe((resp: any) => {
+        if (resp.success) {
+          this.toastr.success('', 'Curso importado correctamente' , {positionClass : 'toast-bottom-right'});
+          this.getCourses(this.idCentre);
+        } else {
+          this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
+        }
+      },
+        error => this.toastr.error('Ha ocurrido un problema al intentar importar el curso', 'Error',{positionClass : 'toast-bottom-right'})
+      );
+    }
   }
 
 }

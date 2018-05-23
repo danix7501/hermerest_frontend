@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import {MatButtonModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DialogEditStudentComponent} from './dialog-edit-student.component';
 import {BrowserModule} from '@angular/platform-browser';
+import {DialogAssociatedParentsComponent} from './dialog-associated-parents.component';
 
 @NgModule({
-  declarations: [DialogEditStudentComponent],
+  declarations: [DialogAssociatedParentsComponent],
   imports: [
     BrowserModule,
     MatButtonModule,
@@ -21,7 +21,7 @@ import {BrowserModule} from '@angular/platform-browser';
   ]
 
 })
-export class DialogEditStudentModule
+export class DialogAssociatedParentsModule
 {
 
 }

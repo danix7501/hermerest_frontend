@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {MatDialog} from '@angular/material';
 import {DialogEditStudentComponent} from '../dialog-edit-student/dialog-edit-student.component';
+import {DialogAssociatedParentsComponent} from '../dialog-associated-parents/dialog-associated-parents.component';
 
 @Component({
   selector: 'app-profile-student',
@@ -13,6 +14,8 @@ export class ProfileStudentComponent implements OnInit {
   nameStudent: any;
   surnameStudent: any;
   courseStudent: any;
+  idCentre: any;
+  idCourse: any;
 
   parents: any[] = [];
 
@@ -29,15 +32,19 @@ export class ProfileStudentComponent implements OnInit {
 
   getStundent() {
     this.http.get('/students/' +  this.idStudent).subscribe((resp: any) => {
+      console.log(resp);
       this.nameStudent = resp.content.name;
       this.surnameStudent = resp.content.surname;
       this.courseStudent = resp.content.course.name;
+      this.idCentre = resp.content.course.centre.id;
+      this.idCourse = resp.content.course.id;
     });
   }
 
   getParentStudent() {
     this.http.get('/students/' +  this.idStudent + '/parents').subscribe((resp: any) => {
       if (resp.content) {
+        this.parents = [];
         for (let i = 0; i < resp.content.parents.length; i++) {
           this.parents.push(resp.content.parents[i]);
         }
@@ -50,7 +57,9 @@ export class ProfileStudentComponent implements OnInit {
       data: {
         nameStudent: this.nameStudent,
         surnameStudent: this.surnameStudent,
-        idStudent: this.idStudent
+        idStudent: this.idStudent,
+        idCentre: this.idCentre,
+        idCourse: this.idCourse
       }
     }).afterClosed().subscribe((resp: any) => {
       if (resp !== 'cancel') {
@@ -62,7 +71,17 @@ export class ProfileStudentComponent implements OnInit {
   }
 
   asociatedParents() {
+    this.dialog.open(DialogAssociatedParentsComponent, {
+      data: {
+        idCentre: this.idCentre,
+        idStudent: this.idStudent
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp !== 'cancel') {
+        this.parents = resp.parents;
+      }
 
+    });
   }
 
   back() {

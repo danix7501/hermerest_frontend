@@ -14,6 +14,13 @@
       Los apellidos del alumno son obligatorios
     </mat-error>
   </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Cursos" formControlName="course" [(ngModel)]="editStudentForm['course']">
+      <mat-option *ngFor="let course of courses" [value]="course.id">
+        {{ course.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
 <div class="footer" fxLayout="row" fxLayoutAlign="center center">
   <button mat-button type="button" (click)="onNoClick('cancel')">Cancelar</button>

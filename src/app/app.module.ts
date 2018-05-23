@@ -21,10 +21,13 @@ import { DialogAddStudentComponent } from './pages/dialog-add-student/dialog-add
 import {DialogAddStudentModule} from './pages/dialog-add-student/dialog-add-student.module';
 import { DialogEditStudentComponent } from './pages/dialog-edit-student/dialog-edit-student.component';
 import {DialogEditStudentModule} from './pages/dialog-edit-student/dialog-edit-student.module';
+import {MatOptionModule, MatSelectModule} from '@angular/material';
+import { DialogAssociatedParentsComponent } from './pages/dialog-associated-parents/dialog-associated-parents.component';
+import {DialogAssociatedParentsModule} from './pages/dialog-associated-parents/dialog-associated-parents.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,9 @@ import {DialogEditStudentModule} from './pages/dialog-edit-student/dialog-edit-s
     DialogAddCourseModule,
     DialogAddStudentModule,
     DialogEditStudentModule,
+    DialogAssociatedParentsModule,
+    MatOptionModule,
+    MatSelectModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -51,7 +57,8 @@ import {DialogEditStudentModule} from './pages/dialog-edit-student/dialog-edit-s
     DialogDeleteComponent,
     DialogAddCourseComponent,
     DialogAddStudentComponent,
-    DialogEditStudentComponent
+    DialogEditStudentComponent,
+    DialogAssociatedParentsComponent
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

@@ -3,7 +3,6 @@ import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
-import {DialogAddCourseComponent} from '../dialog-add-course/dialog-add-course.component';
 
 @Component({
   selector: 'app-dialog-edit-student',
@@ -13,6 +12,7 @@ import {DialogAddCourseComponent} from '../dialog-add-course/dialog-add-course.c
 export class DialogEditStudentComponent implements OnInit {
 
   editStudentForm: FormGroup;
+  courses: any[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpUsingFormDataService,
@@ -21,12 +21,26 @@ export class DialogEditStudentComponent implements OnInit {
 
   ngOnInit() {
     this.editStudentForm = this.formBuilder.group({
-      name: [this.data.nameStudent, Validators.required],
-      surname: [this.data.surnameStudent, Validators.required],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      course: ['']
     });
 
     this.editStudentForm['name'] = this.data.nameStudent;
     this.editStudentForm['surname'] = this.data.surnameStudent;
+    this.editStudentForm['course'] = this.data.idCourse;
+
+    this.getCoursesOfCentre();
+
+  }
+
+  getCoursesOfCentre() {
+    this.http.get('/centres/' + this.data.idCentre + '/courses').subscribe((resp: any) => {
+      this.courses = [];
+      for (let i = 0; i < resp.content.courses.length; i++) {
+        this.courses.push(resp.content.courses[i]);
+      }
+    });
   }
 
   edit() {

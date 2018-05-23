@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {parseHttpResponse} from 'selenium-webdriver/http';
-import {RequestMethod, RequestOptions} from '@angular/http';
 
 @Injectable()
 export class HttpUsingFormDataService {
 
-  // public baseUrl = 'http://localhost/hermerest_backend/web/app_dev.php';
-  public baseUrl = 'http://localhost/hermerest_backend/web';
+  public baseUrl = 'http://localhost/hermerest_backend/web/app_dev.php';
+  // public baseUrl = 'http://localhost/hermerest_backend/web';
   headers: any;
 
   constructor(private http: HttpClient) {
@@ -39,6 +36,11 @@ export class HttpUsingFormDataService {
     return this.http.delete(this.baseUrl + endpoint,  this.headers);
   }
 
+  postFile(endpoint: string, formData) {
+    return this.http.post(this.baseUrl + endpoint, formData,
+      {headers: new HttpHeaders({'enctype': 'multipart/form-data'})});
+  }
+
   bodyToString(json) {
     let urlSearchParams = '';
     Object.keys(json).forEach(function (key) {
@@ -50,7 +52,7 @@ export class HttpUsingFormDataService {
     return urlSearchParams;
   }
 
-  encode(cadena){
+  encode(cadena) {
     cadena = cadena.replace(/&/g, '%26');
     cadena = cadena.replace(/\+/g, '%2B');
     cadena = cadena.replace(/=/g, '%3D');

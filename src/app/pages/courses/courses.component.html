@@ -3,7 +3,13 @@
     Centro: {{nameCentre}}
   </div>
   <span class="example-spacer"></span>
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
   <button mat-raised-button class="size-button" (click)="addCourse()">Añadir curso</button>
+  <input hidden type="file"
+         id="file"
+         (change)="handleFileInput($event.target.files)" accept=".csv" #fileInput>
+  <button mat-raised-button class="size-button" color="primary" (click)="fileInput.click()">Importar curso</button>
+  </div>
 </div>
 <div class="example-container mat-elevation-z8">
 

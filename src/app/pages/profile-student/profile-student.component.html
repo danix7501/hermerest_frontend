@@ -6,11 +6,13 @@
     Alumno: {{nameStudent}} {{surnameStudent}}
   </div>
   <span class="example-spacer"></span>
-  <button mat-raised-button class="size-button" (click)="editStudent()">Editar alumno</button>
-  <button mat-raised-button class="size-button" color="primary" (click)="asociatedParents()">Asociar padres</button>
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+    <button mat-raised-button class="size-button" (click)="editStudent()">Editar alumno</button>
+    <button mat-raised-button class="size-button" color="primary" (click)="asociatedParents()">Asociar padres</button>
+  </div>
 
 </div>
-<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center start">
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
   <div fxLayout="column" fxFlex="25" class="border-card mat-elevation-z8">
     <header>
       Información del alumno
