@@ -4,9 +4,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
   MatButtonModule, MatDialogModule,
   MatFormFieldModule,
-  MatIconModule,
-  MatListModule,
-  MatPaginatorModule,
+  MatIconModule, MatInputModule,
+  MatListModule, MatOptionModule,
+  MatPaginatorModule, MatSelectModule,
   MatSidenavModule, MatSortModule, MatTableModule,
   MatToolbarModule,
   MatTooltipModule
@@ -17,13 +17,16 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {StudentsComponent} from '../students/students.component';
 import {ProfileStudentComponent} from '../profile-student/profile-student.component';
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
+import {AllStudentsComponent} from '../all-students/all-students.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CoursesComponent,
     StudentsComponent,
-    ProfileStudentComponent
+    ProfileStudentComponent,
+    AllStudentsComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -42,6 +45,10 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
     FlexLayoutModule,
     FlexModule,
     MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
+    FormsModule,
+    MatInputModule
   ]
 
 })

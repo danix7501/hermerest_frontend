@@ -24,10 +24,15 @@ import {DialogEditStudentModule} from './pages/dialog-edit-student/dialog-edit-s
 import {MatOptionModule, MatSelectModule} from '@angular/material';
 import { DialogAssociatedParentsComponent } from './pages/dialog-associated-parents/dialog-associated-parents.component';
 import {DialogAssociatedParentsModule} from './pages/dialog-associated-parents/dialog-associated-parents.module';
+import {AllStudentsModule} from './pages/all-students/all-students.module';
+import {CoreModule} from '@angular/flex-layout';
+import {FormsModule} from '@angular/forms';
+import { DialogRegisterStudentComponent } from './pages/dialog-register-student/dialog-register-student.component';
+import {DialogRegisterStudentModule} from "./pages/dialog-register-student/dialog-register-student.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +45,11 @@ import {DialogAssociatedParentsModule} from './pages/dialog-associated-parents/d
     DialogAddStudentModule,
     DialogEditStudentModule,
     DialogAssociatedParentsModule,
+    DialogRegisterStudentModule,
+    AllStudentsModule,
     MatOptionModule,
     MatSelectModule,
+    FormsModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -58,7 +66,8 @@ import {DialogAssociatedParentsModule} from './pages/dialog-associated-parents/d
     DialogAddCourseComponent,
     DialogAddStudentComponent,
     DialogEditStudentComponent,
-    DialogAssociatedParentsComponent
+    DialogAssociatedParentsComponent,
+    DialogRegisterStudentComponent
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

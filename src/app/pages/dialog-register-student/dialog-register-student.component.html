@@ -1,0 +1,60 @@
+<header>
+  <h3 style="text-align: center">Registrar alumno</h3>
+</header>
+<form class="example-container" name="addCourseForm" [formGroup]="registerStudentForm">
+
+  <div fxLayout="row" class="padding-form">
+
+    <div fxLayout="column" class="space-columns">
+      <mat-form-field>
+        <input matInput placeholder="Nombre del alumno *" formControlName="name" [(ngModel)]="registerStudentForm['name']">
+        <mat-error>
+          El nombre del alumno es obligatorio
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Apellidos del alumno *" formControlName="surname" [(ngModel)]="registerStudentForm['surname']">
+        <mat-error>
+          Los apellidos del alumno son obligatorios
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Seleccione un curso *" formControlName="course" [(ngModel)]="registerStudentForm['course']">
+          <mat-option *ngFor="let course of courses" [value]="course.id">
+            {{ course.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          El curso es obligatorio
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column">
+      <h5>Padres/Madres/Tutores</h5>
+      <mat-form-field>
+        <input matInput placeholder="Número de teléfono" formControlName="telephone" [(ngModel)]="registerStudentForm['telephone']" (input)="filterByTelephone()">
+        <mat-error>
+          El número de telefono es obligatorio
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Nombre y apellidos" formControlName="nameParent" readonly="true" [(ngModel)]="registerStudentForm['nameParent']">
+      </mat-form-field>
+      <div fxLayoutAlign="center center">
+        <button mat-raised-button color="primary" class="button-width" type="button" (click)="addParents()">Añadir padre</button>
+      </div>
+      <div *ngIf="addParentsContainer.length > 0" style="margin-top:20px">
+        <div *ngFor="let parent of addParentsContainer">
+          <span>{{parent.name}}<mat-icon style="color:red; padding-left: 10px; cursor: pointer;" (click)="deleteParent(parent)">delete</mat-icon></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-button type="button" (click)="onNoClick('cancel')">Cancelar</button>
+  <button mat-button color="primary" type="submit" [disabled]="registerStudentForm.invalid" (click)="register()">Registrar</button>
+</div>

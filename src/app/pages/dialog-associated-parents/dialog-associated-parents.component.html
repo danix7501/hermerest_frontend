@@ -3,7 +3,7 @@
 </header>
 <form class="example-container" name="editStudentForm" [formGroup]="associatedParents">
   <mat-form-field>
-    <input matInput placeholder="Número de teléfono" formControlName="telephone" [(ngModel)]="associatedParents['telephone']" (input)="filterByTelephone()">
+    <input matInput placeholder="Número de teléfono *" formControlName="telephone" [(ngModel)]="associatedParents['telephone']" (input)="filterByTelephone()">
     <mat-error>
       El número de telefono es obligatorio
     </mat-error>

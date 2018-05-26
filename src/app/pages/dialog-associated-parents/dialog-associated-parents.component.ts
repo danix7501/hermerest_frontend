@@ -71,7 +71,6 @@ export class DialogAssociatedParentsComponent implements OnInit {
   }
 
   onNoClick(parent): void {
-    console.log(1, parent);
     this.dialogRef.close(parent);
   }
 

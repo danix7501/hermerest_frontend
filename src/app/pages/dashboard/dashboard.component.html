@@ -1,19 +1,19 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-
-      <h3>Centro</h3>
+    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="true">
+      <h3 class="title-sidenav">Centro</h3>
       <mat-list role="list">
-        <mat-list-item class="cursor" role="listitem">
+        <mat-list-item (click)="changeView(1)" [ngClass]="{'background-item': showComponent == 1 || showComponent == 2 || backView == 2}" class="cursor" role="listitem">
           <mat-icon mat-list-icon>folder</mat-icon>
           Cursos
         </mat-list-item>
-        <mat-list-item class="cursor" role="listitem">
+        <mat-list-item (click)="changeView(4)" [ngClass]="{'background-item': showComponent == 4 || backView == 4}" class="cursor" role="listitem">
           <mat-icon mat-list-icon>people</mat-icon>
           Alumnos
         </mat-list-item>
       </mat-list>
 
-      <h3>Mensajería</h3>
+
+      <h3 class="title-sidenav">Mensajería</h3>
       <mat-list role="list">
         <mat-list-item class="cursor" role="listitem">
           <mat-icon mat-list-icon>create</mat-icon>
@@ -53,7 +53,11 @@
     </div>
 
     <div *ngIf="showComponent == 3">
-      <app-profile-student idStudent="{{idStudent}}" (update)="hideProfileStudentComponent($event)"></app-profile-student>
+      <app-profile-student idStudent="{{idStudent}}" backView="{{backView}}" (update)="hideProfileStudentComponent($event)"></app-profile-student>
+    </div>
+
+    <div *ngIf="showComponent == 4">
+      <app-all-students (update)="hideAllStudentsComponent($event)"></app-all-students>
     </div>
 
   </mat-drawer-content>

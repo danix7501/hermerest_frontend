@@ -1,0 +1,55 @@
+<div fxLayoutAlign="center center" class="padding-register-button">
+  <button  mat-raised-button color="primary" (click)="registerStudent()">Registrar alumno</button>
+</div>
+
+<div fxLayout="row" class="filters">
+  <mat-form-field fxLayout="column" fxFlex="50" class="course-selector">
+    <mat-select placeholder="Seleccionar curso" [(ngModel)]="currentCourse" (ngModelChange)="filterByCourse()">
+      <mat-option [value]="'all'">
+        Todos los cursos
+      </mat-option>
+      <mat-option *ngFor="let course of courses" [value]="course.id">
+        {{ course.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field fxLayout="column" fxFlex="50" class="student-search">
+    <input matInput (keyup)="searchStudentByNameOrSurname($event.target.value)"
+           placeholder="Buscar por nombre o apellidos">
+  </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <!-- student Column -->
+    <ng-container matColumnDef="student">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.name}} {{row.surname}} </mat-cell>
+    </ng-container>
+
+    <!-- course Column -->
+    <ng-container matColumnDef="course">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.course.name}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row" style="display:flex !important; justify-content:flex-end !important;">
+        <button  mat-raised-button aria-label="Editar" class="button-margin" (click)="seeStudents(row)">Ver</button>
+        <button  mat-raised-button aria-label="Eliminar" class="button-margin" color="warn" (click)="deleteStudent(row)">Eliminar
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageIndex]="0" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

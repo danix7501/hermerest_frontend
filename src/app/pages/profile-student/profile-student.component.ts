@@ -20,6 +20,7 @@ export class ProfileStudentComponent implements OnInit {
   parents: any[] = [];
 
   @Input() idStudent: any;
+  @Input() backView: any;
   @Output('update') change = new EventEmitter();
 
 
@@ -32,7 +33,6 @@ export class ProfileStudentComponent implements OnInit {
 
   getStundent() {
     this.http.get('/students/' +  this.idStudent).subscribe((resp: any) => {
-      console.log(resp);
       this.nameStudent = resp.content.name;
       this.surnameStudent = resp.content.surname;
       this.courseStudent = resp.content.course.name;
@@ -85,7 +85,7 @@ export class ProfileStudentComponent implements OnInit {
   }
 
   back() {
-    this.change.emit(2);
+    this.change.emit(this.backView);
   }
 
 }

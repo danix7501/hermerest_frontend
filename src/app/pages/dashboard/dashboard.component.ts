@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   idCentre: any;
   nameCourse: any;
   idStudent: any;
+  backView: any;
 
   constructor(private router: Router) { }
 
@@ -31,6 +32,11 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  changeView(view) {
+    this.backView = 0;
+    this.showComponent = view;
+  }
+
   hideCoursesComponent(event) {
     this.idCourse = event.id;
     this.idCentre = event.centre.id;
@@ -40,6 +46,7 @@ export class DashboardComponent implements OnInit {
 
   hideStudentsComponent(event) {
     this.idStudent = event.id;
+    this.backView = 2;
     if (event === 1) {
       this.showComponent = 1;
     } else {
@@ -49,6 +56,12 @@ export class DashboardComponent implements OnInit {
 
   hideProfileStudentComponent(event) {
     this.showComponent = event;
+  }
+
+  hideAllStudentsComponent(event) {
+    this.idStudent = event.id;
+    this.showComponent = 3;
+    this.backView = 4;
   }
 
 }

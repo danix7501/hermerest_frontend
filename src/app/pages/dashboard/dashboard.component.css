@@ -11,7 +11,7 @@
 }
 
 .example-sidenav {
-  padding: 20px;
+  width: 240px;
 }
 
 .size-icon{
@@ -30,4 +30,13 @@
 
 .cursor{
   cursor: pointer;
+}
+
+.background-item{
+  background-color: darkcyan;
+  color: white;
+}
+
+.title-sidenav{
+  padding: 15px;
 }
