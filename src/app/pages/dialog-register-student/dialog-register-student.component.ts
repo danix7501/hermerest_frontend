@@ -16,7 +16,7 @@ export class DialogRegisterStudentComponent implements OnInit {
   parents: any[] = [];
   parentsAux: any[] = [];
   addParentsContainer: any[] = [];
-  addParentsContainerUnique: any[] = [];
+  telephoneParents: any[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpUsingFormDataService,
@@ -29,8 +29,9 @@ export class DialogRegisterStudentComponent implements OnInit {
       surname: ['', Validators.required],
       course: ['', Validators.required],
       centre: [''],
-      nameParent: [''],
+      nameParents: [''],
       telephone: [''],
+      telephoneParents: ['']
     });
 
     this.getCoursesOfCentre();
@@ -59,7 +60,22 @@ export class DialogRegisterStudentComponent implements OnInit {
   }
 
   register() {
-
+    for (let i = 0; i < this.addParentsContainer.length; i++) {
+      this.telephoneParents.push(this.addParentsContainer[i].telephone);
+    }
+    this.registerStudentForm['telephoneParents'] = this.telephoneParents;
+    this.registerStudentForm['centre'] = this.data.idCentre;
+    this.http.post('/students/register', this.registerStudentForm).subscribe((resp: any) => {
+      if (resp.success) {
+        this.toastr.success('', 'Alumno registrado correctamente' , {positionClass : 'toast-bottom-right'});
+        this.addParentsContainer = [];
+        this.telephoneParents = [];
+        this.onNoClick(resp.content);
+      } else {
+        this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
+      }
+    }, error => this.toastr.error('Hubo un error al intentar registrar al alumno', 'Error' , {positionClass : 'toast-bottom-right'})
+  );
   }
 
   addParents() {
@@ -98,19 +114,19 @@ export class DialogRegisterStudentComponent implements OnInit {
 
     // Search
     if ( searchTerm === '' ) {
-      this.registerStudentForm['nameParent'] = '';
+      this.registerStudentForm['nameParents'] = '';
     } else {
       this.parents = this.parentsAux.filter((parent) => {
 
         if (parent.telephone === searchTerm) {
-          this.registerStudentForm['nameParent'] = parent.name;
+          this.registerStudentForm['nameParents'] = parent.name;
         }
       });
     }
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(student): void {
+    this.dialogRef.close(student);
   }
 
 }

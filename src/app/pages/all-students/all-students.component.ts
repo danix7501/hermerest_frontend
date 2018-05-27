@@ -97,6 +97,13 @@ export class AllStudentsComponent implements OnInit {
       data: {
         idCentre: this.idCentre
       }
+    }).afterClosed().subscribe((resp:any) => {
+      if (resp !== 'cancel') {
+        this.students.push(resp);
+        this.dataSource = new MatTableDataSource(this.students);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
     });
   }
 
