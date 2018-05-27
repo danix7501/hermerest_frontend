@@ -25,10 +25,10 @@ import {MatOptionModule, MatSelectModule} from '@angular/material';
 import { DialogAssociatedParentsComponent } from './pages/dialog-associated-parents/dialog-associated-parents.component';
 import {DialogAssociatedParentsModule} from './pages/dialog-associated-parents/dialog-associated-parents.module';
 import {AllStudentsModule} from './pages/all-students/all-students.module';
-import {CoreModule} from '@angular/flex-layout';
 import {FormsModule} from '@angular/forms';
 import { DialogRegisterStudentComponent } from './pages/dialog-register-student/dialog-register-student.component';
-import {DialogRegisterStudentModule} from "./pages/dialog-register-student/dialog-register-student.module";
+import {DialogRegisterStudentModule} from './pages/dialog-register-student/dialog-register-student.module';
+import {AuthorizationsModule} from './pages/authorizations/authorizations.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import {DialogRegisterStudentModule} from "./pages/dialog-register-student/dialo
     DialogAssociatedParentsModule,
     DialogRegisterStudentModule,
     AllStudentsModule,
+    AuthorizationsModule,
     MatOptionModule,
     MatSelectModule,
     FormsModule,

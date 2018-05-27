@@ -1,0 +1,75 @@
+<div fxLayoutAlign="center center" class="padding-register-button">
+  <button  mat-raised-button color="primary" (click)="addAuthorization()">Enviar autorización</button>
+</div>
+
+<div fxLayout="row" class="filters">
+
+  <mat-form-field fxLayout="column" fxFlex="33" class="authorization-search">
+    <input matInput (keyup)="searchAuthorizationBySubject($event.target.value)"
+           placeholder="Buscar por asunto">
+  </mat-form-field>
+
+  <mat-form-field fxLayout="column" fxFlex="33" class="month-selector">
+    <mat-select placeholder="Seleccionar mes" [(ngModel)]="monthSending" (ngModelChange)="filterByMonth()">
+      <mat-option [value]="'all'">
+        Cualquier mes
+      </mat-option>
+      <mat-option *ngFor="let month of months" [value]="month.value">
+        {{ month.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field fxLayout="column" fxFlex="33">
+    <mat-select placeholder="Seleccionar estado" [(ngModel)]="statusAuthorization" (ngModelChange)="filterByStatus()">
+      <mat-option [value]="'all'">
+        Cualquier mes
+      </mat-option>
+      <mat-option *ngFor="let month of months" [value]="month.value">
+        {{ month.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <!-- subject Column -->
+    <ng-container matColumnDef="subject">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Asunto </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.subject}} </mat-cell>
+    </ng-container>
+
+    <!-- sendingDate Column -->
+    <ng-container matColumnDef="sendingDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de envío </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.sendingDate.date | date:'dd-MM-yyyy'}} </mat-cell>
+    </ng-container>
+
+    <!-- limitDate Column -->
+    <ng-container matColumnDef="limitDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha límite </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.limitDate.date | date:'dd-MM-yyyy'}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row" style="display:flex !important; justify-content:flex-end !important;">
+        <button  mat-raised-button aria-label="Editar" class="button-margin" (click)="seeAuthorization(row)">Ver</button>
+        <button  mat-raised-button aria-label="Eliminar" class="button-margin" color="warn" (click)="editLimitDate(row)">Editar fecha límite
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageIndex]="0" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

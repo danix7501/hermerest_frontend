@@ -19,6 +19,7 @@ import {ProfileStudentComponent} from '../profile-student/profile-student.compon
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import {AllStudentsComponent} from '../all-students/all-students.component';
 import {FormsModule} from '@angular/forms';
+import {AuthorizationsComponent} from '../authorizations/authorizations.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {FormsModule} from '@angular/forms';
     CoursesComponent,
     StudentsComponent,
     ProfileStudentComponent,
-    AllStudentsComponent
+    AllStudentsComponent,
+    AuthorizationsComponent
   ],
   imports: [
     NgbModule.forRoot(),
