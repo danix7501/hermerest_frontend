@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
-  MatButtonModule, MatDialogModule,
+  MatButtonModule, MatDatepickerInput, MatDatepickerModule, MatDatepickerToggle, MatDialogModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule,
-  MatListModule, MatOptionModule,
+  MatListModule, MatNativeDateModule, MatOptionModule,
   MatPaginatorModule, MatSelectModule,
   MatSidenavModule, MatSortModule, MatTableModule,
   MatToolbarModule,
@@ -50,7 +50,7 @@ import {AuthorizationsComponent} from '../authorizations/authorizations.componen
     MatOptionModule,
     MatSelectModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
   ]
 
 })

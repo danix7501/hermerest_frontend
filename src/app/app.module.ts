@@ -29,6 +29,8 @@ import {FormsModule} from '@angular/forms';
 import { DialogRegisterStudentComponent } from './pages/dialog-register-student/dialog-register-student.component';
 import {DialogRegisterStudentModule} from './pages/dialog-register-student/dialog-register-student.module';
 import {AuthorizationsModule} from './pages/authorizations/authorizations.module';
+import {DialogAddAuthorizationModule} from './pages/dialog-add-authorization/dialog-add-authorization.module';
+import {DialogAddAuthorizationComponent} from './pages/dialog-add-authorization/dialog-add-authorization.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import {AuthorizationsModule} from './pages/authorizations/authorizations.module
     DialogEditStudentModule,
     DialogAssociatedParentsModule,
     DialogRegisterStudentModule,
+    DialogAddAuthorizationModule,
     AllStudentsModule,
     AuthorizationsModule,
     MatOptionModule,
@@ -68,7 +71,8 @@ import {AuthorizationsModule} from './pages/authorizations/authorizations.module
     DialogAddStudentComponent,
     DialogEditStudentComponent,
     DialogAssociatedParentsComponent,
-    DialogRegisterStudentComponent
+    DialogRegisterStudentComponent,
+    DialogAddAuthorizationComponent
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

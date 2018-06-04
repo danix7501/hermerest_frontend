@@ -23,10 +23,10 @@
   <mat-form-field fxLayout="column" fxFlex="33">
     <mat-select placeholder="Seleccionar estado" [(ngModel)]="statusAuthorization" (ngModelChange)="filterByStatus()">
       <mat-option [value]="'all'">
-        Cualquier mes
+        Cualquier estado
       </mat-option>
-      <mat-option *ngFor="let month of months" [value]="month.value">
-        {{ month.text }}
+      <mat-option *ngFor="let statu of status" [value]="statu.value">
+        {{ statu.text }}
       </mat-option>
     </mat-select>
   </mat-form-field>
