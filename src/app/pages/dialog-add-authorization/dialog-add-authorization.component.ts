@@ -112,7 +112,6 @@ export class ChecklistDatabase {
       this.coursesAux[courses[i]] = this.studentsAux;
       this.studentsAux = [];
     }
-    console.log(this.coursesAux);
     this.initialize(this.coursesAux);
   }
 
@@ -165,6 +164,9 @@ export class DialogAddAuthorizationComponent implements OnInit {
 
 
   sendAuthorizationForm: FormGroup;
+  students: any[] = [];
+  keysFirstLevel: any[] = [];
+  keySecondLevel: any;
   fileToUpload: any;
   nameFile: any;
 
@@ -180,7 +182,6 @@ export class DialogAddAuthorizationComponent implements OnInit {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
     database.dataChange.subscribe((data: any) => {
-      console.log(data);
       this.dataSource.data = data;
     });
   }
@@ -268,6 +269,70 @@ export class DialogAddAuthorizationComponent implements OnInit {
     //     error => this.toastr.error('Ha ocurrido un problema al intentar importar el curso', 'Error',{positionClass : 'toast-bottom-right'})
     //   );
     // }
+  }
+
+  checkNode(node, event) {
+
+    // condiciones de true o false segun el checked
+    if (node.level === 0) {
+      if (event.checked) {
+        this.students = [];
+        Object.entries(this.database.coursesAux).forEach(([key, value]) => {
+          Object.keys(value).forEach(keys => {
+            this.students.push(keys);
+          });
+        });
+      } else {
+        this.students = [];
+      }
+
+    } else if (node.level === 1) {
+      if (event.checked) {
+        Object.entries(this.database.coursesAux).forEach(([key, value]) => {
+          if (key === node.item) {
+            Object.keys(value).forEach(keys => {
+              this.students.push(keys);
+            });
+          }
+        });
+      } else {
+        this.keysFirstLevel = [];
+        Object.entries(this.database.coursesAux).forEach(([key, value]) => {
+          if (key === node.item) {
+            Object.keys(value).forEach(keys => {
+              this.keysFirstLevel.push(keys);
+            });
+            this.keysFirstLevel.forEach(values => {
+              const index = this.students.indexOf(values);
+              this.students.splice(index, 1);
+            });
+          }
+        });
+      }
+
+    } else if (node.level === 2) {
+      if (event.checked) {
+        Object.entries(this.database.coursesAux).forEach(([key, value]) => {
+          Object.entries(value).forEach(([keys, values]) => {
+            if (values === node.item) {
+              this.students.push(keys);
+            }
+          });
+        });
+      } else {
+        this.keySecondLevel = null;
+        Object.entries(this.database.coursesAux).forEach(([key, value]) => {
+          Object.entries(value).forEach(([keys, values]) => {
+            if (values === node.item) {
+              this.keySecondLevel = keys;
+              const index = this.students.indexOf(this.keySecondLevel);
+              this.students.splice(index, 1);
+            }
+          });
+        });
+      }
+    }
+    console.log(this.students);
   }
 
   onNoClick(authorization): void {
