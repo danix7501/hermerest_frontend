@@ -60,7 +60,7 @@ export class AuthorizationsComponent implements OnInit {
   }
 
   getAuthorizations(idCentre) {
-    this.http.get('/authorizations/' + idCentre).subscribe((resp: any) => {
+    this.http.get('/centres/' + idCentre + '/authorizations').subscribe((resp: any) => {
       if (resp.content) {
         for (let i = 0; i < resp.content.authorizations.length; i++) {
           this.authorizations.push(resp.content.authorizations[i]);
