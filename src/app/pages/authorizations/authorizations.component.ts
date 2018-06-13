@@ -61,6 +61,7 @@ export class AuthorizationsComponent implements OnInit {
 
   getAuthorizations(idCentre) {
     this.http.get('/centres/' + idCentre + '/authorizations').subscribe((resp: any) => {
+      console.log(1, resp);
       if (resp.content) {
         for (let i = 0; i < resp.content.authorizations.length; i++) {
           this.authorizations.push(resp.content.authorizations[i]);
@@ -77,6 +78,13 @@ export class AuthorizationsComponent implements OnInit {
     this.dialog.open(DialogAddAuthorizationComponent, {
       data: {
         idCentre: this.idCentre
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp !== 'cancel') {
+        this.authorizations.push(resp);
+        this.dataSource = new MatTableDataSource(this.authorizations);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     });
   }

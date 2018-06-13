@@ -25,27 +25,6 @@ export class TodoItemFlatNode {
 }
 
 /**
- * The Json object for to-do list data.
- */
-const TREE_DATA = {
-  'Reminders': [
-    'Cook dinner',
-    'Read the Material Design spec',
-    'Upgrade Application to Angular'
-  ],
-  'Groceries': {
-    'Organic eggs': ['clevis'],
-    'Protein Powder': null,
-    'Almond Meal flour': null,
-    'Fruits': {
-      'Apple': null,
-      'Orange': null,
-      'Berries': ['Blueberry', 'Raspberry']
-    }
-  }
-};
-
-/**
  * Checklist database, it can build a tree structured Json object.
  * Each node in Json object represents a to-do item or a category.
  * If a node is a category, it has children items and new items can be added under the category.
@@ -169,6 +148,7 @@ export class DialogAddAuthorizationComponent implements OnInit {
   keySecondLevel: any;
   fileToUpload: any;
   nameFile: any;
+  submit: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpUsingFormDataService,
@@ -176,10 +156,10 @@ export class DialogAddAuthorizationComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService,
               private database: ChecklistDatabase) {
 
-    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
-      this.isExpandable, this.getChildren);
+    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    this.submit = true;
 
     database.dataChange.subscribe((data: any) => {
       this.dataSource.data = data;
@@ -239,36 +219,43 @@ export class DialogAddAuthorizationComponent implements OnInit {
       subject: ['', Validators.required],
       limitDate: ['', Validators.required],
       centre: [''],
-      studentsIds: [''],
-      sendingDate: [''],
-      message: ['']
+      message: [''],
+      studentsIds: ['']
     });
-
-    // this.getCourses();
   }
 
   add() {
     const formData = new FormData();
-    formData.append('file', this.fileToUpload, this.fileToUpload.name);
+    const sendingDate = new Date();
+    this.sendAuthorizationForm['studentsIds'] = this.students;
+    formData.append('file', this.fileToUpload, this.fileToUpload != null ? this.fileToUpload.name : null);
     formData.append('centre', this.data.idCentre);
+    formData.append('subject', this.sendAuthorizationForm['subject']);
+    formData.append('message', this.sendAuthorizationForm['message']);
+    formData.append('limitDate', this.sendAuthorizationForm['limitDate'].getFullYear() + '-'
+      + (this.sendAuthorizationForm['limitDate'].getMonth() + 1) + '-'
+      + this.sendAuthorizationForm['limitDate'].getDate());
+    formData.append('sendingDate', sendingDate.getFullYear() + '-'
+      + (sendingDate.getMonth() + 1) + '-'
+      + sendingDate.getDate());
+    formData.append('studentsIds', this.sendAuthorizationForm['studentsIds']);
+
+    this.http.postFile('/authorizations', formData).subscribe((resp: any) => {
+            if (resp.success) {
+              this.toastr.success('', 'Autorización enviada correctamente' , {positionClass : 'toast-bottom-right'});
+              this.onNoClick(resp.content.authorizations);
+            } else {
+              this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
+            }
+          },
+          error => this.toastr.error('Ha ocurrido un problema al intentar enviar la autorización', 'Error', { positionClass : 'toast-bottom-right'})
+        );
   }
+
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.nameFile = this.fileToUpload.name;
-
-    // if (this.fileToUpload !== null) {
-    //   this.http.postFile('/courses/importCourse', formData).subscribe((resp: any) => {
-    //       if (resp.success) {
-    //         this.toastr.success('', 'Curso importado correctamente' , {positionClass : 'toast-bottom-right'});
-    //         this.getCourses(this.idCentre);
-    //       } else {
-    //         this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
-    //       }
-    //     },
-    //     error => this.toastr.error('Ha ocurrido un problema al intentar importar el curso', 'Error',{positionClass : 'toast-bottom-right'})
-    //   );
-    // }
   }
 
   checkNode(node, event) {
@@ -332,6 +319,13 @@ export class DialogAddAuthorizationComponent implements OnInit {
         });
       }
     }
+
+    if (this.students.length === 0) {
+      this.submit = false;
+    } else {
+      this.submit = true;
+    }
+    console.log(this.submit);
     console.log(this.students);
   }
 
