@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="true">
+    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="open">
       <h3 class="title-sidenav">Centro</h3>
       <mat-list role="list">
         <mat-list-item (click)="changeView(1)" [ngClass]="{'background-item': showComponent == 1 || showComponent == 2 || backView == 2}" class="cursor" role="listitem">
@@ -19,11 +19,11 @@
           <mat-icon mat-list-icon>create</mat-icon>
           Autorizaciones
         </mat-list-item>
-        <mat-list-item class="cursor" role="listitem">
+        <mat-list-item class="cursor" role="listitem" (click)="changeView(6)" [ngClass]="{'background-item': showComponent == 6}">
           <mat-icon mat-list-icon>content_paste</mat-icon>
           Circulares
         </mat-list-item>
-        <mat-list-item class="cursor" role="listitem">
+        <mat-list-item class="cursor" role="listitem" (click)="changeView(7)" [ngClass]="{'background-item': showComponent == 7}">
           <mat-icon mat-list-icon>poll</mat-icon>
           Encuestas
         </mat-list-item>
@@ -62,6 +62,14 @@
 
     <div *ngIf="showComponent == 5">
       <app-authorizations></app-authorizations>
+    </div>
+
+    <div *ngIf="showComponent == 6">
+      <app-circulars></app-circulars>
+    </div>
+
+    <div *ngIf="showComponent == 7">
+      <app-polls></app-polls>
     </div>
 
   </mat-drawer-content>

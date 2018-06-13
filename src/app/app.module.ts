@@ -21,7 +21,7 @@ import { DialogAddStudentComponent } from './pages/dialog-add-student/dialog-add
 import {DialogAddStudentModule} from './pages/dialog-add-student/dialog-add-student.module';
 import { DialogEditStudentComponent } from './pages/dialog-edit-student/dialog-edit-student.component';
 import {DialogEditStudentModule} from './pages/dialog-edit-student/dialog-edit-student.module';
-import {MatOptionModule, MatSelectModule} from '@angular/material';
+import {MatMenuModule, MatOptionModule, MatSelectModule} from '@angular/material';
 import { DialogAssociatedParentsComponent } from './pages/dialog-associated-parents/dialog-associated-parents.component';
 import {DialogAssociatedParentsModule} from './pages/dialog-associated-parents/dialog-associated-parents.module';
 import {AllStudentsModule} from './pages/all-students/all-students.module';
@@ -31,10 +31,16 @@ import {DialogRegisterStudentModule} from './pages/dialog-register-student/dialo
 import {AuthorizationsModule} from './pages/authorizations/authorizations.module';
 import {DialogAddAuthorizationModule} from './pages/dialog-add-authorization/dialog-add-authorization.module';
 import {DialogAddAuthorizationComponent} from './pages/dialog-add-authorization/dialog-add-authorization.component';
+import { CircularsComponent } from './pages/circulars/circulars.component';
+import {CircularsModule} from './pages/circulars/circulars.module';
+import { PollsComponent } from './pages/polls/polls.component';
+import {PollsModule} from './pages/polls/polls.module';
+import { DialogAddCircularComponent } from './pages/dialog-add-circular/dialog-add-circular.component';
+import {DialogAddCircularModule} from './pages/dialog-add-circular/dialog-add-circular.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -49,8 +55,11 @@ import {DialogAddAuthorizationComponent} from './pages/dialog-add-authorization/
     DialogAssociatedParentsModule,
     DialogRegisterStudentModule,
     DialogAddAuthorizationModule,
+    DialogAddCircularModule,
     AllStudentsModule,
     AuthorizationsModule,
+    CircularsModule,
+    PollsModule,
     MatOptionModule,
     MatSelectModule,
     FormsModule,
@@ -72,7 +81,8 @@ import {DialogAddAuthorizationComponent} from './pages/dialog-add-authorization/
     DialogEditStudentComponent,
     DialogAssociatedParentsComponent,
     DialogRegisterStudentComponent,
-    DialogAddAuthorizationComponent
+    DialogAddAuthorizationComponent,
+    DialogAddCircularComponent
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

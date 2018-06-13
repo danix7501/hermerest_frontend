@@ -38,4 +38,4 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
     MatMenuModule
   ],
 })
-export class AuthorizationsModule { }
+export class CircularsModule { }

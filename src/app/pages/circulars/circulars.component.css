@@ -26,7 +26,7 @@
 .month-selector{
   margin-right: 10px;
 }
-.authorization-search{
+.circular-search{
   margin-right: 10px;
 }
 
@@ -40,26 +40,21 @@
   padding-top: 25px;
 }
 
-.table-authorizations .mat-cell:nth-child(1),
-.table-authorizations .mat-header-cell:nth-child(1)
+.table-circulars .mat-cell:nth-child(1),
+.table-circulars .mat-header-cell:nth-child(1)
 {
-  flex: 0 0 20%;
+  flex: 0 0 50%;
 }
 
-.table-authorizations .mat-cell:nth-child(2),
-.table-authorizations .mat-header-cell:nth-child(2)
+.table-circulars .mat-cell:nth-child(2),
+.table-circulars .mat-header-cell:nth-child(2)
 {
-  flex: 0 0 20%;
+  flex: 0 0 25%;
 }
 
-.table-authorizations .mat-cell:nth-child(3),
-.table-authorizations .mat-header-cell:nth-child(3)
+.table-circulars .mat-cell:nth-child(3),
+.table-circulars .mat-header-cell:nth-child(3)
 {
-  flex: 0 0 20%;
+  flex: 0 0 25%;
 }
 
-.table-authorizations .mat-cell:nth-child(4),
-.table-authorizations .mat-header-cell:nth-child(4)
-{
-  flex: 0 0 40%;
-}

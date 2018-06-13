@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
-  MatButtonModule, MatDatepickerInput, MatDatepickerModule, MatDatepickerToggle, MatDialogModule,
+  MatButtonModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule,
-  MatListModule, MatNativeDateModule, MatOptionModule,
+  MatListModule, MatMenuModule, MatOptionModule,
   MatPaginatorModule, MatSelectModule,
   MatSidenavModule, MatSortModule, MatTableModule,
   MatToolbarModule,
@@ -20,6 +20,8 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import {AllStudentsComponent} from '../all-students/all-students.component';
 import {FormsModule} from '@angular/forms';
 import {AuthorizationsComponent} from '../authorizations/authorizations.component';
+import {CircularsComponent} from '../circulars/circulars.component';
+import {PollsComponent} from '../polls/polls.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {AuthorizationsComponent} from '../authorizations/authorizations.componen
     StudentsComponent,
     ProfileStudentComponent,
     AllStudentsComponent,
-    AuthorizationsComponent
+    AuthorizationsComponent,
+    CircularsComponent,
+    PollsComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -51,6 +55,7 @@ import {AuthorizationsComponent} from '../authorizations/authorizations.componen
     MatSelectModule,
     FormsModule,
     MatInputModule,
+    MatMenuModule
   ]
 
 })

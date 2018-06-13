@@ -36,33 +36,37 @@
 
 <div class="example-container mat-elevation-z8">
 
-  <mat-table #table [dataSource]="dataSource" matSort>
+  <mat-table class="table-authorizations" #table [dataSource]="dataSource" matSort>
 
     <!-- subject Column -->
     <ng-container matColumnDef="subject">
-      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Asunto </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let row"> {{row.subject}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Asunto </mat-header-cell>
+      <mat-cell *matCellDef="let authorization"> {{authorization.subject}} </mat-cell>
     </ng-container>
 
     <!-- sendingDate Column -->
     <ng-container matColumnDef="sendingDate">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de envío </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.sendingDate.date | date:'dd-MM-yyyy'}} </mat-cell>
+      <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Fecha de envío </mat-header-cell>
+      <mat-cell fxLayoutAlign="center center" *matCellDef="let authorization"> {{authorization.sendingDate.date | date:'dd-MM-yyyy'}} </mat-cell>
     </ng-container>
 
     <!-- limitDate Column -->
     <ng-container matColumnDef="limitDate">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha límite </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.limitDate.date | date:'dd-MM-yyyy'}} </mat-cell>
+      <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Fecha límite </mat-header-cell>
+      <mat-cell fxLayoutAlign="center center" *matCellDef="let authorization"> {{authorization.limitDate.date | date:'dd-MM-yyyy'}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let row" style="display:flex !important; justify-content:flex-end !important;">
-        <button  mat-raised-button aria-label="Editar" class="button-margin" (click)="seeAuthorization(row)">Ver</button>
-        <button  mat-raised-button aria-label="Eliminar" class="button-margin" color="warn" (click)="editLimitDate(row)">Editar fecha límite
-        </button>
+      <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef></mat-header-cell>
+      <mat-cell fxLayoutAlign="center center" *matCellDef="let authorization" style="display:flex !important; justify-content:flex-end !important;">
+        <button  fxHide.xs mat-raised-button aria-label="Editar" class="button-margin" (click)="seeAuthorization(authorization)">Ver</button>
+        <button  fxHide.xs mat-raised-button aria-label="Eliminar" class="button-margin" color="warn" (click)="editLimitDate(authorization)">Editar fecha límite</button>
+        <button fxHide.gt-xs mat-button [matMenuTriggerFor]="menu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="seeAuthorization(authorization)">Ver</button>
+          <button mat-menu-item (click)="editLimitDate(authorization)">Editar fecha límite</button>
+        </mat-menu>
       </mat-cell>
     </ng-container>
 

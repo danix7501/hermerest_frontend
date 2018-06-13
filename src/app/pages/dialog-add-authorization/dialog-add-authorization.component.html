@@ -17,8 +17,8 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" formControlName="limitDate" [(ngModel)]="sendAuthorizationForm['limitDate']" placeholder="Fecha Limite *">
+        <mat-form-field (click)="picker.open()">
+          <input matInput [matDatepicker]="picker" formControlName="limitDate" [(ngModel)]="sendAuthorizationForm['limitDate']" placeholder="Fecha Limite *" readonly="readonly" style="cursor:pointer;">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error>
@@ -70,8 +70,7 @@
   </form>
   <div class="footer" fxLayout="row" fxLayoutAlign="center center">
     <button mat-button type="button" (click)="onNoClick('cancel')">Cancelar</button>
-    <button mat-button color="primary" type="submit" [disabled]="sendAuthorizationForm.invalid && submit" (click)="add()">Enviar</button>
-    {{sendAuthorizationForm.invalid}} {{submit}}
+    <button mat-button color="primary" type="submit" [disabled]="!submit" (click)="add()">Enviar</button>
   </div>
 
 </div>

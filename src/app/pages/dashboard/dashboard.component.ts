@@ -14,11 +14,11 @@ export class DashboardComponent implements OnInit {
   nameCourse: any;
   idStudent: any;
   backView: any;
-
+  open: boolean;
   constructor(private router: Router) { }
 
   ngOnInit() {
-
+    this.open = true;
     this.showComponent = 1;
     if (localStorage.getItem('rol') !== 'administrator') {
       this.router.navigate(['/login']);

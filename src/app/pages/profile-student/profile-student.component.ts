@@ -62,7 +62,7 @@ export class ProfileStudentComponent implements OnInit {
         idCourse: this.idCourse
       }
     }).afterClosed().subscribe((resp: any) => {
-      if (resp !== 'cancel') {
+      if (resp && resp !== 'cancel') {
         this.nameStudent = resp.name;
         this.surnameStudent = resp.surname;
         this.courseStudent = resp.course.name;
@@ -77,7 +77,7 @@ export class ProfileStudentComponent implements OnInit {
         idStudent: this.idStudent
       }
     }).afterClosed().subscribe((resp: any) => {
-      if (resp !== 'cancel') {
+      if (resp && resp !== 'cancel') {
         this.parents = resp.parents;
       }
 

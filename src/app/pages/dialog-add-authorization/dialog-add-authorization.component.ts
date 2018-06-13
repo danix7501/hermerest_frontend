@@ -159,7 +159,7 @@ export class DialogAddAuthorizationComponent implements OnInit {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.submit = true;
+    this.submit = false;
 
     database.dataChange.subscribe((data: any) => {
       this.dataSource.data = data;
@@ -319,18 +319,14 @@ export class DialogAddAuthorizationComponent implements OnInit {
         });
       }
     }
-
-    if (this.students.length === 0) {
-      this.submit = false;
-    } else {
+    if (this.sendAuthorizationForm.status === 'VALID' && this.students.length > 0) {
       this.submit = true;
+    } else {
+      this.submit = false;
     }
-    console.log(this.submit);
-    console.log(this.students);
   }
 
   onNoClick(authorization): void {
     this.dialogRef.close(authorization);
   }
-
 }
