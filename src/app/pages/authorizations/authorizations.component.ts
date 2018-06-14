@@ -75,11 +75,12 @@ export class AuthorizationsComponent implements OnInit {
 
   addAuthorization() {
     this.dialog.open(DialogAddAuthorizationComponent, {
+      maxHeight: '450px',
       data: {
         idCentre: this.idCentre
       }
     }).afterClosed().subscribe((resp: any) => {
-      if (resp !== 'cancel') {
+      if (resp && resp !== 'cancel') {
         this.authorizations.push(resp);
         this.dataSource = new MatTableDataSource(this.authorizations);
         this.dataSource.paginator = this.paginator;

@@ -55,7 +55,7 @@ export class StudentsComponent implements OnInit {
         idCentre: this.idCentre
       }
     }).afterClosed().subscribe((resp: any) => {
-      if (resp !== 'cancel') {
+      if (resp && resp !== 'cancel') {
         this.students.push(resp);
         this.dataSource = new MatTableDataSource(this.students);
         this.dataSource.paginator = this.paginator;
@@ -74,7 +74,7 @@ export class StudentsComponent implements OnInit {
         question: '¿Esta seguro que quiere eliminar este alumno?'
       }
     }).afterClosed().subscribe((resp: any) => {
-      if (resp === 'delete') {
+      if (resp && resp === 'delete') {
         const index = this.students.indexOf(student);
         this.students.splice(index, 1);
         this.dataSource = new MatTableDataSource(this.students);

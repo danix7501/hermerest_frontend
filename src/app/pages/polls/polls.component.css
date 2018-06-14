@@ -1,0 +1,65 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-height: 500px;
+  margin: 25px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.button-margin{
+  margin: 4px;
+}
+
+.month-selector{
+  margin-right: 10px;
+}
+.poll-search{
+  margin-right: 10px;
+}
+
+.filters{
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.padding-register-button{
+  padding-top: 25px;
+}
+
+.table-polls .mat-cell:nth-child(1),
+.table-polls .mat-header-cell:nth-child(1)
+{
+  flex: 0 0 30%;
+}
+
+.table-polls .mat-cell:nth-child(2),
+.table-polls .mat-header-cell:nth-child(2)
+{
+  flex: 0 0 15%;
+}
+
+.table-polls .mat-cell:nth-child(3),
+.table-polls .mat-header-cell:nth-child(3)
+{
+  flex: 0 0 15%;
+}
+
+.table-polls .mat-cell:nth-child(4),
+.table-polls .mat-header-cell:nth-child(4)
+{
+  flex: 0 0 40%;
+}

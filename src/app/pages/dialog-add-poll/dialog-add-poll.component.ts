@@ -1,10 +1,10 @@
 import {Component, Inject, Injectable, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpUsingFormDataService} from '../../services/http/http.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {of as ofObservable, Observable, BehaviorSubject} from 'rxjs';
 
@@ -118,13 +118,12 @@ export class ChecklistDatabase {
 }
 
 @Component({
-  selector: 'app-dialog-add-circular',
-  templateUrl: './dialog-add-circular.component.html',
-  styleUrls: ['./dialog-add-circular.component.css'],
+  selector: 'app-dialog-add-poll',
+  templateUrl: './dialog-add-poll.component.html',
+  styleUrls: ['./dialog-add-poll.component.css'],
   providers: [ChecklistDatabase]
-
 })
-export class DialogAddCircularComponent implements OnInit {
+export class DialogAddPollComponent implements OnInit {
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap: Map<TodoItemFlatNode, TodoItemNode> = new Map<TodoItemFlatNode, TodoItemNode>();
@@ -141,24 +140,27 @@ export class DialogAddCircularComponent implements OnInit {
   /** The selection for checklist */
   checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
 
-
-  sendCircularForm: FormGroup;
   students: any[] = [];
   keysFirstLevel: any[] = [];
   keySecondLevel: any;
+  firstSendPollForm: FormGroup;
+  secondSendPollForm: FormGroup;
+  thirdSendPollForm: FormGroup;
   fileToUpload: any;
   nameFile: any;
-  submit: boolean;
+  optionsPoll: any[] = [];
+
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpUsingFormDataService,
-              public dialogRef: MatDialogRef<DialogAddCircularComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService,
+              public dialogRef: MatDialogRef<DialogAddPollComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private toastr: ToastrService,
               private database: ChecklistDatabase) {
+
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.submit = false;
 
     database.dataChange.subscribe((data: any) => {
       this.dataSource.data = data;
@@ -212,45 +214,51 @@ export class DialogAddCircularComponent implements OnInit {
       : this.checklistSelection.deselect(...descendants);
   }
 
-
   ngOnInit() {
-    this.sendCircularForm = this.formBuilder.group({
+    this.firstSendPollForm = this.formBuilder.group({
       subject: ['', Validators.required],
-      centre: [''],
-      message: [''],
+      limitDate: ['', Validators.required],
+      message: ['']
+    });
+    this.secondSendPollForm = this.formBuilder.group({
+      pollOptions: [''],
+      multipleChoice: ['']
+    });
+    this.thirdSendPollForm = this.formBuilder.group({
       studentsIds: ['']
     });
   }
 
+
   add() {
     const formData = new FormData();
     const sendingDate = new Date();
-    this.sendCircularForm['studentsIds'] = this.students;
+    this.secondSendPollForm['pollOptions'] = this.optionsPoll;
+    this.thirdSendPollForm['studentsIds'] = this.students;
     formData.append('file', this.fileToUpload, this.fileToUpload != null ? this.fileToUpload.name : null);
     formData.append('centre', this.data.idCentre);
-    formData.append('subject', this.sendCircularForm['subject']);
-    formData.append('message', this.sendCircularForm['message']);
+    formData.append('subject', this.firstSendPollForm['subject']);
+    formData.append('message', this.firstSendPollForm['message']);
+    formData.append('multipleChoice', this.secondSendPollForm['multipleChoice']);
+    formData.append('pollOptions', this.secondSendPollForm['pollOptions']);
+    formData.append('limitDate', this.firstSendPollForm['limitDate'].getFullYear() + '-'
+      + (this.firstSendPollForm['limitDate'].getMonth() + 1) + '-'
+      + this.firstSendPollForm['limitDate'].getDate());
     formData.append('sendingDate', sendingDate.getFullYear() + '-'
       + (sendingDate.getMonth() + 1) + '-'
       + sendingDate.getDate());
-    formData.append('studentsIds', this.sendCircularForm['studentsIds']);
+    formData.append('studentsIds', this.thirdSendPollForm['studentsIds']);
 
-    this.http.postFile('/circulars', formData).subscribe((resp: any) => {
+    this.http.postFile('/polls', formData).subscribe((resp: any) => {
         if (resp.success) {
-          this.toastr.success('', 'Circular enviada correctamente' , {positionClass : 'toast-bottom-right'});
-          this.onNoClick(resp.content.circular);
+          this.toastr.success('', 'Encuesta enviada correctamente' , {positionClass : 'toast-bottom-right'});
+          this.onNoClick(resp.content.poll);
         } else {
           this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
         }
       },
-      error => this.toastr.error('Ha ocurrido un problema al intentar enviar la circular', 'Error', { positionClass : 'toast-bottom-right'})
+      error => this.toastr.error('Ha ocurrido un problema al intentar enviar la encuesta', 'Error', { positionClass : 'toast-bottom-right'})
     );
-  }
-
-
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    this.nameFile = this.fileToUpload.name;
   }
 
   checkNode(node, event) {
@@ -316,16 +324,27 @@ export class DialogAddCircularComponent implements OnInit {
     }
   }
 
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.nameFile = this.fileToUpload.name;
+  }
 
-  checkFormValidator() {
-    if (this.sendCircularForm.get('subject').value && this.students.length > 0) {
-      this.submit = true;
-    } else {
-      this.submit = false;
+  addOptionsPoll() {
+    if (!this.optionsPoll.includes(this.secondSendPollForm['pollOptions']) && this.secondSendPollForm['pollOptions']) {
+      this.optionsPoll.push(this.secondSendPollForm['pollOptions']);
     }
+    this.secondSendPollForm.get('pollOptions').setValue(null);
   }
 
-  onNoClick(circular): void {
-    this.dialogRef.close(circular);
+  removeOptionsPoll(option) {
+    const index = this.optionsPoll.indexOf(option);
+    this.optionsPoll.splice(index, 1);
+
   }
+
+  onNoClick(poll): void {
+    this.dialogRef.close(poll);
+  }
+
+
 }

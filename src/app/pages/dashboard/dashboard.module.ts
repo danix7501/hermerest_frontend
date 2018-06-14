@@ -7,7 +7,7 @@ import {
   MatIconModule, MatInputModule,
   MatListModule, MatMenuModule, MatOptionModule,
   MatPaginatorModule, MatSelectModule,
-  MatSidenavModule, MatSortModule, MatTableModule,
+  MatSidenavModule, MatSortModule, MatStepperModule, MatTableModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
@@ -55,7 +55,8 @@ import {PollsComponent} from '../polls/polls.component';
     MatSelectModule,
     FormsModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    MatStepperModule,
   ]
 
 })

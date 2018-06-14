@@ -1,0 +1,106 @@
+<mat-horizontal-stepper [linear]="true">
+  <mat-step [stepControl]="firstSendPollForm">
+    <form [formGroup]="firstSendPollForm">
+      <ng-template matStepLabel>Enviar encuesta</ng-template>
+      <div fxLayout="column" fxFlex="100" class="space-columns">
+
+        <div fxLayout="row">
+          <mat-form-field fxFlex="50" style="margin-right: 15px">
+            <input matInput placeholder="Asunto *" formControlName="subject" [(ngModel)]="firstSendPollForm['subject']">
+            <mat-error>
+              El asunto de la encuesta es obligatorio
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="50" (click)="picker.open()">
+            <input matInput [matDatepicker]="picker" formControlName="limitDate" [(ngModel)]="firstSendPollForm['limitDate']" placeholder="Fecha Limite *" readonly="readonly" style="cursor:pointer;">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>
+              La fecha límite es obligatoria
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <textarea matInput placeholder="Descripción" formControlName="message" [(ngModel)]="firstSendPollForm['message']"></textarea>
+        </mat-form-field>
+
+
+        <div fxLayoutAlign="center center" style="margin-bottom: 15px;">
+          <input hidden type="file"
+                 id="file"
+                 (change)="handleFileInput($event.target.files)" #fileInput>
+          <button mat-raised-button type="button" class="button-width" color="primary" (click)="fileInput.click()">Seleccionar documento</button>
+          <div *ngIf="fileToUpload !== null">
+            <span>{{nameFile}}</span>
+          </div>
+        </div>
+      </div>
+      <div fxLayoutAlign="center center">
+        <button mat-button color="primary" matStepperNext [disabled]="firstSendPollForm.invalid">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondSendPollForm">
+    <form [formGroup]="secondSendPollForm">
+      <ng-template matStepLabel>Añadir opciones</ng-template>
+      <div fxLayout="column" fxFlex="100" class="space-columns" fxLayoutAlign="center">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-form-field fxFlex="85">
+            <input matInput placeholder="Opciones*" formControlName="pollOptions" [(ngModel)]="secondSendPollForm['pollOptions']">
+          </mat-form-field>
+          <mat-icon mat-list-icon style="cursor: pointer;" (click)="addOptionsPoll()">add</mat-icon>
+        </div>
+        <div *ngIf="optionsPoll.length > 0" style="max-height: 100px !important; overflow-y: auto !important;">
+          <div fxLayoutAlign="start center" *ngFor="let option of optionsPoll; let i = index;" style="margin-left: 5%">
+            <span>{{i+1}} - {{option}}</span>
+            <mat-icon mat-list-icon style="cursor: pointer; color: red;" (click)="removeOptionsPoll(option)">delete</mat-icon>
+          </div>
+        </div>
+          <div fxFlex="50" fxLayoutAlign="end center" style="margin-bottom: 20px">
+            <mat-checkbox style="margin-right: 10px" formControlName="multipleChoice" [(ngModel)]="secondSendPollForm['multipleChoice']"></mat-checkbox> Permitir respuesta múltiple
+          </div>
+      </div>
+
+      <div fxLayoutAlign="center center">
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-button color="primary" matStepperNext [disabled]="optionsPoll.length <= 1">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdSendPollForm">
+    <form [formGroup]="thirdSendPollForm">
+      <ng-template matStepLabel>Destinatarios</ng-template>
+      <div fxLayout="row" fxFlex="100" style="height: 250px !important; overflow-y: scroll !important;">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+            <button mat-icon-button disabled></button>
+            <mat-checkbox class="checklist-leaf-node"
+                          [checked]="checklistSelection.isSelected(node)"
+                          (change)="checklistSelection.toggle(node); checkNode(node, ($event));">{{node.item}}</mat-checkbox>
+          </mat-tree-node>
+
+
+          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+            <button mat-icon-button matTreeNodeToggle
+                    [attr.aria-label]="'toggle ' + node.filename">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            <mat-checkbox [checked]="descendantsAllSelected(node)"
+                          [indeterminate]="descendantsPartiallySelected(node)"
+                          (change)="todoItemSelectionToggle(node); checkNode(node, ($event));">{{node.item}}</mat-checkbox>
+          </mat-tree-node>
+        </mat-tree>
+      </div>
+      <div fxLayoutAlign="center center">
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-button color="primary" matStepperNext [disabled]="students.length <= 0" (click)="add()">Enviar</button>
+      </div>
+    </form>
+  </mat-step>
+
+</mat-horizontal-stepper>

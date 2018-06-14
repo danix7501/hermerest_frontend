@@ -1,3 +1,79 @@
-<p>
-  polls works!
-</p>
+<div fxLayoutAlign="center center" class="padding-register-button">
+  <button  mat-raised-button color="primary" (click)="addPoll()">Enviar encuesta</button>
+</div>
+
+<div fxLayout="row" class="filters">
+
+  <mat-form-field fxLayout="column" fxFlex="33" class="poll-search">
+    <input matInput (keyup)="searchPollBySubject($event.target.value)"
+           placeholder="Buscar por asunto">
+  </mat-form-field>
+
+  <mat-form-field fxLayout="column" fxFlex="33" class="month-selector">
+    <mat-select placeholder="Seleccionar mes" [(ngModel)]="monthSending" (ngModelChange)="filterByMonth()">
+      <mat-option [value]="'all'">
+        Cualquier mes
+      </mat-option>
+      <mat-option *ngFor="let month of months" [value]="month.value">
+        {{ month.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field fxLayout="column" fxFlex="33">
+    <mat-select placeholder="Seleccionar estado" [(ngModel)]="statusPoll" (ngModelChange)="filterByStatus()">
+      <mat-option [value]="'all'">
+        Cualquier estado
+      </mat-option>
+      <mat-option *ngFor="let statu of status" [value]="statu.value">
+        {{ statu.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table class="table-polls" #table [dataSource]="dataSource" matSort>
+
+    <!-- subject Column -->
+    <ng-container matColumnDef="subject">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Asunto </mat-header-cell>
+      <mat-cell *matCellDef="let poll"> {{poll.subject}} </mat-cell>
+    </ng-container>
+
+    <!-- sendingDate Column -->
+    <ng-container matColumnDef="sendingDate">
+      <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Fecha de envío </mat-header-cell>
+      <mat-cell fxLayoutAlign="center center" *matCellDef="let poll"> {{poll.sendingDate.date | date:'dd-MM-yyyy'}} </mat-cell>
+    </ng-container>
+
+    <!-- limitDate Column -->
+    <ng-container matColumnDef="limitDate">
+      <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Fecha límite </mat-header-cell>
+      <mat-cell fxLayoutAlign="center center" *matCellDef="let poll"> {{poll.limitDate.date | date:'dd-MM-yyyy'}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef></mat-header-cell>
+      <mat-cell fxLayoutAlign="center center" *matCellDef="let poll" style="display:flex !important; justify-content:flex-end !important;">
+        <button  fxHide.xs mat-raised-button aria-label="Editar" class="button-margin" (click)="seeAuthorization(poll)">Ver</button>
+        <button  fxHide.xs mat-raised-button aria-label="Eliminar" class="button-margin" color="warn" (click)="editLimitDate(poll)">Editar fecha límite</button>
+        <button fxHide.gt-xs mat-button [matMenuTriggerFor]="menu"><mat-icon mat-list-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="seeAuthorization(poll)">Ver</button>
+          <button mat-menu-item (click)="editLimitDate(poll)">Editar fecha límite</button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageIndex]="0" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

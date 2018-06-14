@@ -47,11 +47,11 @@ export class CoursesComponent implements OnInit {
   }
 
   getCourses(idCentre) {
-    this.http.get('/centres/' + idCentre + '/courses').subscribe((resp2: any) => {
+    this.http.get('/centres/' + idCentre + '/courses').subscribe((resp: any) => {
       this.courses = [];
-      if (resp2.content) {
-        for (let i = 0; i < resp2.content.courses.length; i++) {
-          this.courses.push(resp2.content.courses[i]);
+      if (resp.content) {
+        for (let i = 0; i < resp.content.courses.length; i++) {
+          this.courses.push(resp.content.courses[i]);
         }
         this.dataSource = new MatTableDataSource(this.courses);
         this.dataSource.paginator = this.paginator;
@@ -70,7 +70,7 @@ export class CoursesComponent implements OnInit {
         idCentre: this.idCentre
       }
     }).afterClosed().subscribe((resp: any) => {
-      if (resp !== 'cancel') {
+      if (resp && resp !== 'cancel') {
         this.courses.push(resp);
         this.dataSource = new MatTableDataSource(this.courses);
         this.dataSource.paginator = this.paginator;
@@ -89,7 +89,7 @@ export class CoursesComponent implements OnInit {
         question: '¿Esta seguro que quiere eliminar este curso?'
       }
     }).afterClosed().subscribe((resp: any) => {
-      if (resp === 'delete') {
+      if (resp && resp === 'delete') {
         const index = this.courses.indexOf(course);
         this.courses.splice(index, 1);
         this.dataSource = new MatTableDataSource(this.courses);

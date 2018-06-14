@@ -69,7 +69,19 @@ export class CircularsComponent implements OnInit {
   }
 
   addCircular() {
-    this.dialog.open(DialogAddCircularComponent);
+    this.dialog.open(DialogAddCircularComponent, {
+      maxHeight: '400px',
+      data: {
+        idCentre: this.idCentre
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp && resp !== 'cancel') {
+        this.circulars.push(resp);
+        this.dataSource = new MatTableDataSource(this.circulars);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
   seeCircular() {
@@ -89,8 +101,8 @@ export class CircularsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     } else {
-      this.circulars = this.circularsAux.filter((authorization) => {
-        return new Date(authorization.sendingDate.date).getMonth() + 1 + '' === this.monthSending;
+      this.circulars = this.circularsAux.filter((circular) => {
+        return new Date(circular.sendingDate.date).getMonth() + 1 + '' === this.monthSending;
       });
       this.dataSource = new MatTableDataSource(this.circulars);
       this.dataSource.paginator = this.paginator;

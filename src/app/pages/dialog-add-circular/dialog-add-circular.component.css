@@ -1,0 +1,44 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+header {
+  padding: 0px !important;
+}
+
+.footer {
+  padding: 16px;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+}
+
+.space-columns{
+  padding-right: 20px;
+}
+
+.padding-form{
+  padding-top: 30px;
+}
+
+.button-width{
+  width: 60%;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  height: 15px !important;
+  width: 15px !important;
+}
+
+::ng-deep .mat-icon-button .mat-icon, .mat-icon-button i {
+  line-height: 15px;
+}
+
+::ng-deep .mat-tree-node{
+  min-height: 0px !important;
+}

@@ -11,14 +11,14 @@
       <div fxLayout="column" fxFlex="50" class="space-columns">
 
         <mat-form-field>
-          <input matInput placeholder="Asunto *" formControlName="subject" [(ngModel)]="sendAuthorizationForm['subject']">
+          <input matInput placeholder="Asunto *" formControlName="subject" [(ngModel)]="sendAuthorizationForm['subject']" (ngModelChange)="checkFormValidator()">
           <mat-error>
             El asunto de la autorización es obligatorio
           </mat-error>
         </mat-form-field>
 
         <mat-form-field (click)="picker.open()">
-          <input matInput [matDatepicker]="picker" formControlName="limitDate" [(ngModel)]="sendAuthorizationForm['limitDate']" placeholder="Fecha Limite *" readonly="readonly" style="cursor:pointer;">
+          <input matInput [matDatepicker]="picker" formControlName="limitDate" [(ngModel)]="sendAuthorizationForm['limitDate']" (ngModelChange)="checkFormValidator()" placeholder="Fecha Limite *" readonly="readonly" style="cursor:pointer;">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error>
@@ -40,14 +40,14 @@
 
       </div>
 
-      <div fxLayout="column" fxFlex="50">
+      <div fxLayout="column" fxFlex="50" style="height: 250px !important; overflow-y: scroll !important;">
         <h5>Destinatarios</h5>
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
             <button mat-icon-button disabled></button>
             <mat-checkbox class="checklist-leaf-node"
                           [checked]="checklistSelection.isSelected(node)"
-                          (change)="checklistSelection.toggle(node); checkNode(node, ($event));">{{node.item}}</mat-checkbox>
+                          (change)="checklistSelection.toggle(node); checkNode(node, ($event)); checkFormValidator();">{{node.item}}</mat-checkbox>
           </mat-tree-node>
 
 
@@ -60,7 +60,7 @@
             </button>
             <mat-checkbox [checked]="descendantsAllSelected(node)"
                           [indeterminate]="descendantsPartiallySelected(node)"
-                          (change)="todoItemSelectionToggle(node); checkNode(node, ($event))">{{node.item}}</mat-checkbox>
+                          (change)="todoItemSelectionToggle(node); checkNode(node, ($event)); checkFormValidator();">{{node.item}}</mat-checkbox>
           </mat-tree-node>
         </mat-tree>
       </div>

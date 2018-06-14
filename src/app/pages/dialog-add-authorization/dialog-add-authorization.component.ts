@@ -39,7 +39,7 @@ export class ChecklistDatabase {
 
   get data(): TodoItemNode[] { return this.dataChange.value; }
 
-  constructor(private http: HttpUsingFormDataService) {
+  constructor(private http: HttpUsingFormDataService, @Inject(MAT_DIALOG_DATA) public data2: any) {
     this.getCourses();
     // this.initialize();
   }
@@ -58,7 +58,7 @@ export class ChecklistDatabase {
   }
 
     getCourses() {
-      this.http.get('/centres/' + 1 + '/courses').subscribe((resp: any) => {
+      this.http.get('/centres/' + this.data2.idCentre + '/courses').subscribe((resp: any) => {
         if (resp.content) {
           for (let i = 0; i < resp.content.courses.length; i++) {
             this.courses.push(resp.content.courses[i].name);
@@ -69,7 +69,7 @@ export class ChecklistDatabase {
   }
 
   getStudents(courses) {
-    this.http.get('/centres/' + 1 + '/students').subscribe((resp: any) => {
+    this.http.get('/centres/' + this.data2.idCentre + '/students').subscribe((resp: any) => {
       if (resp.content) {
         for (let i = 0; i < resp.content.students.length; i++) {
           this.students.push({id: resp.content.students[i].id,
@@ -243,7 +243,7 @@ export class DialogAddAuthorizationComponent implements OnInit {
     this.http.postFile('/authorizations', formData).subscribe((resp: any) => {
             if (resp.success) {
               this.toastr.success('', 'Autorización enviada correctamente' , {positionClass : 'toast-bottom-right'});
-              this.onNoClick(resp.content.authorizations);
+              this.onNoClick(resp.content.authorization);
             } else {
               this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
             }
@@ -319,7 +319,10 @@ export class DialogAddAuthorizationComponent implements OnInit {
         });
       }
     }
-    if (this.sendAuthorizationForm.status === 'VALID' && this.students.length > 0) {
+  }
+
+  checkFormValidator() {
+    if (this.sendAuthorizationForm.get('subject').value && this.sendAuthorizationForm.get('limitDate').value && this.students.length > 0) {
       this.submit = true;
     } else {
       this.submit = false;
