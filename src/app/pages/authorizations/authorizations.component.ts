@@ -3,6 +3,7 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {JwtHelper} from 'angular2-jwt';
 import {DialogAddAuthorizationComponent} from '../dialog-add-authorization/dialog-add-authorization.component';
+import {DialogSeeAuthorizationComponent} from '../dialog-see-authorization/dialog-see-authorization.component';
 
 @Component({
   selector: 'app-authorizations',
@@ -90,7 +91,13 @@ export class AuthorizationsComponent implements OnInit {
   }
 
   seeAuthorization(authorization) {
-
+    this.dialog.open(DialogSeeAuthorizationComponent, {
+      width: '500px',
+      minHeight: '450px',
+      data: {
+        authorization: authorization
+      }
+    });
   }
 
   editLimitDate(authorization) {

@@ -1,0 +1,7 @@
+<header>
+  <h3 style="text-align: center">{{data.authorization.subject}}</h3>
+</header>
+<div fxLayout="column" class="dates">
+  <span>Fecha de envío {{data.authorization.sendingDate.date | date:'dd-MM-yyyy' }}</span>
+  <span>Fecha límite {{data.authorization.limitDate.date | date:'dd-MM-yyyy'}}</span>
+</div>
