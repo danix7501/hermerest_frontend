@@ -1,0 +1,21 @@
+<header>
+  <h3 style="text-align: center" cdkFocusRegionstart>{{data.poll.subject}}</h3>
+</header>
+
+<div fxLayout="row" class="margin-dates">
+  <div fxLayout="column" fxFlex="60">
+    <div fxLayout="column" fxFlex>
+        <span class="dates">Fecha de envío: {{data.poll.sendingDate.date | date:'dd-MM-yyyy' }}</span>
+        <span class="dates">Fecha límite: {{data.poll.limitDate.date | date:'dd-MM-yyyy'}}</span>
+    </div>
+    <div fxLayout="column" fxFlex style="margin-top: 25px; padding-right: 20px;">
+      <span class="dates">Descripción</span>
+      <textarea style="min-height: 175px" readonly="readonly">{{data.poll.message}}</textarea>
+    </div>
+  </div>
+
+  <div fxLayout="column" fxFlex="40">
+    <span class="dates">Resultados</span>
+  </div>
+
+</div>

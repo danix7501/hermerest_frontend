@@ -3,6 +3,7 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {JwtHelper} from 'angular2-jwt';
 import {DialogAddCircularComponent} from '../dialog-add-circular/dialog-add-circular.component';
+import {DialogSeeCircularComponent} from '../dialog-see-circular/dialog-see-circular.component';
 
 @Component({
   selector: 'app-circulars',
@@ -84,7 +85,14 @@ export class CircularsComponent implements OnInit {
     });
   }
 
-  seeCircular() {
+  seeCircular(circular) {
+    this.dialog.open(DialogSeeCircularComponent, {
+      width: '600px',
+      minHeight: '250px',
+      data: {
+        circular: circular
+      }
+    });
   }
 
 

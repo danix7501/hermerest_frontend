@@ -3,6 +3,7 @@ import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {JwtHelper} from 'angular2-jwt';
 import {DialogAddPollComponent} from '../dialog-add-poll/dialog-add-poll.component';
+import {DialogSeePollComponent} from '../dialog-see-poll/dialog-see-poll.component';
 
 @Component({
   selector: 'app-polls',
@@ -89,7 +90,13 @@ export class PollsComponent implements OnInit {
   }
 
   seePoll(poll) {
-
+    this.dialog.open(DialogSeePollComponent, {
+      width: '700px',
+      minHeight: '450px',
+      data: {
+        poll: poll
+      }
+    });
   }
 
   editLimitDate(poll) {

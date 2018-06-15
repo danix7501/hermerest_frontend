@@ -1,0 +1,19 @@
+<header>
+  <h3 style="text-align: center" cdkFocusRegionstart>{{data.circular.subject}}</h3>
+</header>
+
+<div fxLayout="row" class="margin-dates">
+  <div fxFlex="40" fxLayout="column" fxLayoutAlign="center start">
+    <div>
+      <span class="dates">Fecha de envío: {{data.circular.sendingDate.date | date:'dd-MM-yyyy' }}</span>
+    </div>
+  </div>
+  <div fxFlex="60" fxLayout="column" >
+    <span class="dates">Descripción</span>
+    <textarea style="min-height: 100px" readonly="readonly">{{data.circular.message}}</textarea>
+  </div>
+</div>
+
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-button type="button" (click)="onNoClick()">Salir</button>
+</div>

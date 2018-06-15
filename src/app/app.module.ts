@@ -39,6 +39,10 @@ import {DialogAddPollComponent} from './pages/dialog-add-poll/dialog-add-poll.co
 import {DialogAddPollModule} from './pages/dialog-add-poll/dialog-add-poll.module';
 import { DialogSeeAuthorizationComponent } from './pages/dialog-see-authorization/dialog-see-authorization.component';
 import {DialogSeeAuthorizationModule} from './pages/dialog-see-authorization/dialog-see-authorization.module';
+import { DialogSeeCircularComponent } from './pages/dialog-see-circular/dialog-see-circular.component';
+import {DialogSeeCircularModule} from './pages/dialog-see-circular/dialog-see-circular.module';
+import { DialogSeePollComponent } from './pages/dialog-see-poll/dialog-see-poll.component';
+import {DialogSeePollModule} from './pages/dialog-see-poll/dialog-see-poll.module';
 
 @NgModule({
   declarations: [
@@ -60,6 +64,8 @@ import {DialogSeeAuthorizationModule} from './pages/dialog-see-authorization/dia
     DialogAddCircularModule,
     DialogAddPollModule,
     DialogSeeAuthorizationModule,
+    DialogSeeCircularModule,
+    DialogSeePollModule,
     AllStudentsModule,
     AuthorizationsModule,
     CircularsModule,
@@ -88,7 +94,9 @@ import {DialogSeeAuthorizationModule} from './pages/dialog-see-authorization/dia
     DialogAddAuthorizationComponent,
     DialogAddCircularComponent,
     DialogAddPollComponent,
-    DialogSeeAuthorizationComponent
+    DialogSeeAuthorizationComponent,
+    DialogSeeCircularComponent,
+    DialogSeePollComponent,
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

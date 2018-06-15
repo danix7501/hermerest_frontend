@@ -92,7 +92,7 @@ export class AuthorizationsComponent implements OnInit {
 
   seeAuthorization(authorization) {
     this.dialog.open(DialogSeeAuthorizationComponent, {
-      width: '500px',
+      width: '600px',
       minHeight: '450px',
       data: {
         authorization: authorization
