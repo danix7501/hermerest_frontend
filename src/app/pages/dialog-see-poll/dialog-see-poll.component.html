@@ -15,7 +15,13 @@
   </div>
 
   <div fxLayout="column" fxFlex="40">
-    <span class="dates">Resultados</span>
+    <span class="dates" style="margin-bottom: 25px;">Resultados</span>
+    <div *ngFor="let option of pollsReplies; let i = index;">
+      <li>{{option.optionText}}: {{option.countReplies}}</li>
+    </div>
   </div>
+</div>
 
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-button type="button" (click)="onNoClick()">Salir</button>
 </div>

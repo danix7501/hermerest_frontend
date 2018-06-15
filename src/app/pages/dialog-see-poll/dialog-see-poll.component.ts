@@ -9,11 +9,21 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class DialogSeePollComponent implements OnInit {
 
+  pollsReplies: any[] = [];
   constructor(private http: HttpUsingFormDataService,
               public dialogRef: MatDialogRef<DialogSeePollComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    this.getRepliesPoll();
+  }
+
+  getRepliesPoll() {
+    this.http.get('/polls/replies?poll=' + this.data.poll.id).subscribe((resp: any) => {
+      if (resp.content) {
+        this.pollsReplies = resp.content.pollsReplies;
+      }
+    });
   }
 
   onNoClick(): void {
