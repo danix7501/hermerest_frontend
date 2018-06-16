@@ -3,13 +3,25 @@
 </header>
 <form class="example-container" name="addCourseForm" [formGroup]="addCourseForm">
   <mat-form-field>
-    <input matInput placeholder="Nombre del curso *" formControlName="name" [(ngModel)]="addCourseForm['name']">
+    <input matInput placeholder="Nombre del curso *" formControlName="name" [(ngModel)]="addCourseForm['name']" (ngModelChange)="checkForm()">
     <mat-error>
       El nombre del curso es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Profesor *" [matAutocomplete]="auto" [formControl]="teacherCtrl" (ngModelChange)="checkForm()">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let teacher of filteredTeachers | async" [value]="teacher">
+        <span>{{ teacher.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>
+      El profesor del curso es obligatorio
     </mat-error>
   </mat-form-field>
 </form>
 <div class="footer" fxLayout="row" fxLayoutAlign="center center">
   <button mat-button type="button" (click)="onNoClick('cancel')">Cancelar</button>
-  <button mat-button color="primary" type="submit" [disabled]="addCourseForm.invalid" (click)="add()">Añadir</button>
+  <button mat-button color="primary" type="submit" [disabled]="!submit" (click)="add()">Añadir</button>
 </div>

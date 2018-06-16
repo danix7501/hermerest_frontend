@@ -21,7 +21,7 @@ import { DialogAddStudentComponent } from './pages/dialog-add-student/dialog-add
 import {DialogAddStudentModule} from './pages/dialog-add-student/dialog-add-student.module';
 import { DialogEditStudentComponent } from './pages/dialog-edit-student/dialog-edit-student.component';
 import {DialogEditStudentModule} from './pages/dialog-edit-student/dialog-edit-student.module';
-import {MatOptionModule, MatSelectModule} from '@angular/material';
+import {MatAutocompleteModule, MatOptionModule, MatSelectModule} from '@angular/material';
 import { DialogAssociatedParentsComponent } from './pages/dialog-associated-parents/dialog-associated-parents.component';
 import {DialogAssociatedParentsModule} from './pages/dialog-associated-parents/dialog-associated-parents.module';
 import {AllStudentsModule} from './pages/all-students/all-students.module';
@@ -43,6 +43,11 @@ import { DialogSeeCircularComponent } from './pages/dialog-see-circular/dialog-s
 import {DialogSeeCircularModule} from './pages/dialog-see-circular/dialog-see-circular.module';
 import { DialogSeePollComponent } from './pages/dialog-see-poll/dialog-see-poll.component';
 import {DialogSeePollModule} from './pages/dialog-see-poll/dialog-see-poll.module';
+import {TeachersModule} from './pages/teachers/teachers.module';
+import { DialogRegisterTeacherComponent } from './pages/dialog-register-teacher/dialog-register-teacher.component';
+import {DialogRegisterTeacherModule} from './pages/dialog-register-teacher/dialog-register-teacher.module';
+import { DialogSeeTeacherComponent } from './pages/dialog-see-teacher/dialog-see-teacher.component';
+import {DialogSeeTeacherModule} from './pages/dialog-see-teacher/dialog-see-teacher.module';
 
 @NgModule({
   declarations: [
@@ -54,24 +59,28 @@ import {DialogSeePollModule} from './pages/dialog-see-poll/dialog-see-poll.modul
     LoginModule,
     DashboardModule,
     StudentsModule,
+    TeachersModule,
     DialogDeleteModule,
     DialogAddCourseModule,
     DialogAddStudentModule,
     DialogEditStudentModule,
     DialogAssociatedParentsModule,
     DialogRegisterStudentModule,
+    DialogRegisterTeacherModule,
     DialogAddAuthorizationModule,
     DialogAddCircularModule,
     DialogAddPollModule,
     DialogSeeAuthorizationModule,
     DialogSeeCircularModule,
     DialogSeePollModule,
+    DialogSeeTeacherModule,
     AllStudentsModule,
     AuthorizationsModule,
     CircularsModule,
     PollsModule,
     MatOptionModule,
     MatSelectModule,
+    MatAutocompleteModule,
     FormsModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -91,12 +100,14 @@ import {DialogSeePollModule} from './pages/dialog-see-poll/dialog-see-poll.modul
     DialogEditStudentComponent,
     DialogAssociatedParentsComponent,
     DialogRegisterStudentComponent,
+    DialogRegisterTeacherComponent,
     DialogAddAuthorizationComponent,
     DialogAddCircularComponent,
     DialogAddPollComponent,
     DialogSeeAuthorizationComponent,
     DialogSeeCircularComponent,
     DialogSeePollComponent,
+    DialogSeeTeacherComponent,
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

@@ -1,0 +1,40 @@
+<header>
+  <h3 style="text-align: center; margin-bottom: 20px;">Registrar profesor</h3>
+</header>
+<form class="example-container" name="addCourseForm" [formGroup]="registerTeacherForm">
+
+  <div fxLayout="column" fxFlex="100">
+    <div fxLayout="row">
+      <mat-form-field fxFlex="">
+        <input matInput placeholder="Nombre del profesor *" formControlName="name" [(ngModel)]="registerTeacherForm['name']">
+        <mat-error>
+          El nombre del profesor es obligatorio
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+        <mat-form-field fxFlex="50" style="margin-right: 10px">
+          <input matInput placeholder="Nombre de usuario *" formControlName="username" [(ngModel)]="registerTeacherForm['username']">
+          <mat-error>
+            El nombre de usuario es obligatorio
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="50">
+          <input matInput placeholder="Contraseña *" type="password" formControlName="password" [(ngModel)]="registerTeacherForm['password']">
+          <mat-error *ngIf="registerTeacherForm.get('password').hasError('required')">
+            La contraseña es obligatoria
+          </mat-error>
+          <mat-error *ngIf="registerTeacherForm.get('password').hasError('minlength')">
+            La contraseña tiene que tener mínimo 8 carácteres
+          </mat-error>
+        </mat-form-field>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer" fxLayout="row" fxLayoutAlign="center center" style="margin-top: 15px;">
+  <button mat-button type="button" (click)="onNoClick('cancel')">Cancelar</button>
+  <button mat-button color="primary" type="submit" [disabled]="registerTeacherForm.invalid" (click)="register()">Registrar</button>
+</div>

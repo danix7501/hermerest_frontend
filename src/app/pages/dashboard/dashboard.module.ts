@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
+  MatAutocompleteModule,
   MatButtonModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule,
@@ -22,12 +23,14 @@ import {FormsModule} from '@angular/forms';
 import {AuthorizationsComponent} from '../authorizations/authorizations.component';
 import {CircularsComponent} from '../circulars/circulars.component';
 import {PollsComponent} from '../polls/polls.component';
+import {TeachersComponent} from '../teachers/teachers.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CoursesComponent,
     StudentsComponent,
+    TeachersComponent,
     ProfileStudentComponent,
     AllStudentsComponent,
     AuthorizationsComponent,

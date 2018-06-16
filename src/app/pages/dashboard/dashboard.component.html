@@ -10,6 +10,10 @@
           <mat-icon mat-list-icon>people</mat-icon>
           Alumnos
         </mat-list-item>
+        <mat-list-item (click)="changeView(8)" [ngClass]="{'background-item': showComponent == 8}" class="cursor" role="listitem">
+          <mat-icon mat-list-icon>school</mat-icon>
+          Profesores
+        </mat-list-item>
       </mat-list>
 
 
@@ -72,7 +76,10 @@
       <app-polls></app-polls>
     </div>
 
+    <div *ngIf="showComponent == 8">
+      <app-teachers></app-teachers>
+    </div>
+
   </mat-drawer-content>
 
 </mat-drawer-container>
-

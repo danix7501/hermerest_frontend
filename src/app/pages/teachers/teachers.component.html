@@ -1,0 +1,41 @@
+<div fxLayoutAlign="center center" class="padding-register-button" style="margin-top: 25px;">
+  <button  mat-raised-button color="primary" (click)="addTeacher()">Registrar profesor</button>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <!-- name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let teacher"> {{teacher.name}} </mat-cell>
+    </ng-container>
+
+    <!-- course Column -->
+    <ng-container matColumnDef="course">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
+      <mat-cell *matCellDef="let teacher"> {{teacher.course == null ? 'No tiene asociado un curso' : teacher.course.name}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let teacher" style="display:flex !important; justify-content:flex-end !important;">
+
+        <button mat-raised-button [matMenuTriggerFor]="menu">Acciones</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="seeTeacher(teacher)">Ver/Editar</button>
+          <button *ngIf="teacher.course == null" mat-menu-item (click)="associateCourse(teacher)">Asociar curso</button>
+          <button mat-menu-item (click)="deleteTeacher(teacher)">Eliminar</button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageIndex]="0" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
