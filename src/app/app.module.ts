@@ -48,6 +48,8 @@ import { DialogRegisterTeacherComponent } from './pages/dialog-register-teacher/
 import {DialogRegisterTeacherModule} from './pages/dialog-register-teacher/dialog-register-teacher.module';
 import { DialogSeeTeacherComponent } from './pages/dialog-see-teacher/dialog-see-teacher.component';
 import {DialogSeeTeacherModule} from './pages/dialog-see-teacher/dialog-see-teacher.module';
+import { DialogEditLimitdateComponent } from './pages/dialog-edit-limitdate/dialog-edit-limitdate.component';
+import {DialogEditLimitdateModule} from './pages/dialog-edit-limitdate/dialog-edit-limitdate.module';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import {DialogSeeTeacherModule} from './pages/dialog-see-teacher/dialog-see-teac
     DialogSeeCircularModule,
     DialogSeePollModule,
     DialogSeeTeacherModule,
+    DialogEditLimitdateModule,
     AllStudentsModule,
     AuthorizationsModule,
     CircularsModule,
@@ -108,6 +111,7 @@ import {DialogSeeTeacherModule} from './pages/dialog-see-teacher/dialog-see-teac
     DialogSeeCircularComponent,
     DialogSeePollComponent,
     DialogSeeTeacherComponent,
+    DialogEditLimitdateComponent
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

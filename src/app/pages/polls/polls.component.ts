@@ -4,6 +4,7 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {JwtHelper} from 'angular2-jwt';
 import {DialogAddPollComponent} from '../dialog-add-poll/dialog-add-poll.component';
 import {DialogSeePollComponent} from '../dialog-see-poll/dialog-see-poll.component';
+import {DialogEditLimitdateComponent} from '../dialog-edit-limitdate/dialog-edit-limitdate.component';
 
 @Component({
   selector: 'app-polls',
@@ -100,6 +101,23 @@ export class PollsComponent implements OnInit {
   }
 
   editLimitDate(poll) {
+    this.dialog.open(DialogEditLimitdateComponent, {
+      data: {
+        poll: poll,
+        type: 'poll'
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp && resp !== 'cancel') {
+        for (let i = 0; i < this.polls.length; i++) {
+          if (this.polls[i].id === resp.id) {
+            this.polls[i].limitDate = resp.limitDate;
+          }
+        }
+        this.dataSource = new MatTableDataSource(this.polls);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
 
   }
 

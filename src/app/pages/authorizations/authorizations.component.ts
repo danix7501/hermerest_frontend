@@ -4,6 +4,7 @@ import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {JwtHelper} from 'angular2-jwt';
 import {DialogAddAuthorizationComponent} from '../dialog-add-authorization/dialog-add-authorization.component';
 import {DialogSeeAuthorizationComponent} from '../dialog-see-authorization/dialog-see-authorization.component';
+import {DialogEditLimitdateComponent} from '../dialog-edit-limitdate/dialog-edit-limitdate.component';
 
 @Component({
   selector: 'app-authorizations',
@@ -101,7 +102,23 @@ export class AuthorizationsComponent implements OnInit {
   }
 
   editLimitDate(authorization) {
-
+    this.dialog.open(DialogEditLimitdateComponent, {
+      data: {
+        authorization: authorization,
+        type: 'authorization'
+      }
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp && resp !== 'cancel') {
+        for (let i = 0; i < this.authorizations.length; i++) {
+          if (this.authorizations[i].id === resp.id) {
+            this.authorizations[i].limitDate = resp.limitDate;
+          }
+        }
+        this.dataSource = new MatTableDataSource(this.authorizations);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
   searchAuthorizationBySubject(filterValue: string) {

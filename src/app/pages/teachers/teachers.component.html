@@ -26,7 +26,6 @@
         <button mat-raised-button [matMenuTriggerFor]="menu">Acciones</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="seeTeacher(teacher)">Ver/Editar</button>
-          <button *ngIf="teacher.course == null" mat-menu-item (click)="associateCourse(teacher)">Asociar curso</button>
           <button mat-menu-item (click)="deleteTeacher(teacher)">Eliminar</button>
         </mat-menu>
       </mat-cell>
