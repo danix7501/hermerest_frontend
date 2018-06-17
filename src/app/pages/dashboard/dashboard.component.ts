@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {JwtHelper} from 'angular2-jwt';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,6 +9,7 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  nameAdministrador: any;
   showComponent: any;
   idCourse: any;
   idCentre: any;
@@ -23,6 +25,7 @@ export class DashboardComponent implements OnInit {
     if (localStorage.getItem('rol') !== 'administrator') {
       this.router.navigate(['/login']);
     }
+    this.nameAdministrador = new JwtHelper().decodeToken(localStorage.getItem('token')).name;
 
   }
 

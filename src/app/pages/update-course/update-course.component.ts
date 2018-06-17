@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DropEvent} from 'ng2-drag-drop';
 import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {JwtHelper} from 'angular2-jwt';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-course',
@@ -18,13 +19,16 @@ export class UpdateCourseComponent implements OnInit {
   courses2: any[] = [];
 
   students1: any[] = [];
+  studentsAux: any[] = [];
   students2: any[] = [];
 
   currentCourse1: any;
   currentCourse2: any;
 
+  updates: any[] = [];
+  idCourse: any;
 
-  constructor(private http: HttpUsingFormDataService) { }
+  constructor(private http: HttpUsingFormDataService, private toastr: ToastrService) { }
 
   ngOnInit() {
     const decodeToken = new JwtHelper().decodeToken(localStorage.getItem('token'));
@@ -50,11 +54,13 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   findStundentsByCourse1(event) {
-    console.log(1, event);
     this.courses2 = [];
-    if (event) {
+    if (event || event === 'update') {
       this.http.get('/courses/' + this.currentCourse1.id + '/students').subscribe((resp: any) => {
         if (resp.content) {
+          for (let i = 0; i < resp.content.students.length; i++) {
+            resp.content.students[i]['status'] = 0;
+          }
           this.students1 = resp.content.students;
         }
       });
@@ -68,10 +74,12 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   findStundentsByCourse2(event) {
-    console.log(2, event);
     if (event) {
       this.http.get('/courses/' + this.currentCourse2.id + '/students').subscribe((resp: any) => {
         if (resp.content) {
+          for (let i = 0; i < resp.content.students.length; i++) {
+            resp.content.students[i]['status'] = 0;
+          }
           this.students2 = resp.content.students;
         }
       });
@@ -79,28 +87,35 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   onList1Drop(e: DropEvent) {
-    console.log(1, e);
     if (e.dragData.status === 1) {
       e.dragData.status = 0;
       e.dragData.course = this.currentCourse1;
     } else {
       e.dragData.status = 2;
     }
-    this.students1.push(e.dragData);
-    this.removeItem(e.dragData, this.students2);
+    if (e.dragData.status !== 2) {
+      this.students1.push(e.dragData);
+      this.removeItem(e.dragData, this.students2);
+    } else {
+      this.toastr.error('No se puede bajar un alumno de curso', 'Error' , {positionClass : 'toast-bottom-right'});
+    }
   }
 
   onList2Drop(e: DropEvent) {
-    console.log(2, e);
-    if (e.dragData.status === 2) {
-      e.dragData.status = 0;
+    if (this.currentCourse2) {
+      if (e.dragData.status === 2) {
+        e.dragData.status = 0;
+      } else {
+        e.dragData.status = 1;
+        e.dragData.course = this.currentCourse2;
+      }
+
+      this.students2.push(e.dragData);
+      this.removeItem(e.dragData, this.students1);
     } else {
-      e.dragData.status = 1;
-      e.dragData.course = this.currentCourse2;
+      this.toastr.error('Seleccione un curso objetivo', 'Error' , {positionClass : 'toast-bottom-right'});
     }
 
-    this.students2.push(e.dragData);
-    this.removeItem(e.dragData, this.students1);
   }
 
   removeItem(item: any, list: Array<any>) {
@@ -111,7 +126,29 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   updateCourse() {
-    console.log('realizar un tratamiento del segundo array desde el backend');
+    this.updates = [];
+    for (let i = 0; i < this.students2.length; i++) {
+
+      if (this.students2[i].status === 1) {
+        this.updates.push(this.students2[i].id);
+        this.idCourse = this.students2[i].course.id;
+      }
+    }
+
+    if (this.updates.length > 0) {
+      const json = {
+        'studentsIds': this.updates
+      };
+      this.http.put('/courses/' + this.idCourse, json).subscribe((resp: any) => {
+        if (resp.success) {
+          this.findStundentsByCourse2('update');
+          this.toastr.success('', 'Curso actualizado correctamente' , {positionClass : 'toast-bottom-right'});
+        } else {
+          this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
+        }
+      }, error1 => {this.toastr.error('Ha ocurrido un problema al actualizar el curso', 'Error' , {positionClass : 'toast-bottom-right'});
+      });
+    }
   }
 
 }

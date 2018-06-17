@@ -8,13 +8,13 @@
   <span class="example-spacer"></span>
   <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
     <button mat-raised-button class="size-button" (click)="editStudent()">Editar alumno</button>
-    <button mat-raised-button class="size-button" color="primary" (click)="asociatedParents()">Asociar padres</button>
+    <button mat-raised-button class="size-button color-button-primary" (click)="asociatedParents()">Asociar padres</button>
   </div>
 
 </div>
 <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center">
   <div fxLayout="column" fxFlex="25" class="border-card mat-elevation-z8">
-    <header>
+    <header style="margin-bottom: 10px">
       Información del alumno
     </header>
     <div fxLayout="column" class="margin-info">
@@ -36,7 +36,7 @@
     </div>
   </div>
   <div fxLayout="column" fxFlex="25" class="border-card mat-elevation-z8">
-    <header>
+    <header style="margin-bottom: 10px">
       Padres/Madres/Tutores legales
     </header>
     <div fxLayout="column" class="margin-info" *ngIf="parents.length == 0">

@@ -7,11 +7,13 @@ header{
   padding: 10px;
   font-size: 17px;
   color: white;
-  background-color: darkcyan;
+  background-color: #2499ff;
 }
 
 .margin-info{
-  margin: 25px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .arrow-back{

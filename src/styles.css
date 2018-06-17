@@ -8,3 +8,8 @@
 body {
   font-family: Roboto;
 }
+
+.color-button-primary {
+  color: white;
+  background-color: #2499ff;
+}

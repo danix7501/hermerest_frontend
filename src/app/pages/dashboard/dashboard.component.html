@@ -15,6 +15,7 @@
           Profesores
         </mat-list-item>
         <mat-list-item (click)="changeView(9)" [ngClass]="{'background-item': showComponent == 9}" class="cursor" role="listitem">
+          <mat-icon mat-list-icon>update</mat-icon>
           Actualizar curso
         </mat-list-item>
       </mat-list>
@@ -44,6 +45,7 @@
         <mat-icon class="size-icon cursor" mat-list-icon>view_headline</mat-icon>
       </div>
       <div class="linea-vertical"></div>
+      <span class="user-connect">Conectado: {{nameAdministrador}}</span>
       <span class="example-spacer"></span>
       <div class="cursor">
         <mat-icon mat-list-icon matTooltip="Cerrar sesión" [matTooltipPosition]="'left'" (click)="logout()">input</mat-icon>

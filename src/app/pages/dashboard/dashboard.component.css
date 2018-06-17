@@ -33,10 +33,15 @@
 }
 
 .background-item{
-  background-color: darkcyan;
+  background-color: #2499ff;
   color: white;
 }
 
 .title-sidenav{
   padding: 15px;
+}
+
+.user-connect{
+  margin-left: 10px;
+  font-size: 16px;
 }
