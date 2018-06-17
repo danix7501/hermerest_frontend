@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
-  MatAutocompleteModule,
   MatButtonModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule,
@@ -24,6 +23,10 @@ import {AuthorizationsComponent} from '../authorizations/authorizations.componen
 import {CircularsComponent} from '../circulars/circulars.component';
 import {PollsComponent} from '../polls/polls.component';
 import {TeachersComponent} from '../teachers/teachers.component';
+import {UpdateCourseComponent} from '../update-course/update-course.component';
+import {Ng2DragDropModule} from 'ng2-drag-drop';
+import {BrowserModule} from '@angular/platform-browser';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import {TeachersComponent} from '../teachers/teachers.component';
     AllStudentsComponent,
     AuthorizationsComponent,
     CircularsComponent,
-    PollsComponent
+    PollsComponent,
+    UpdateCourseComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -60,6 +64,9 @@ import {TeachersComponent} from '../teachers/teachers.component';
     MatInputModule,
     MatMenuModule,
     MatStepperModule,
+    Ng2DragDropModule,
+    BrowserModule,
+    CommonModule
   ]
 
 })

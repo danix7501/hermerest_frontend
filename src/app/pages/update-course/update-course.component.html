@@ -1,0 +1,57 @@
+<div fxLayoutAlign="center center" class="padding-register-button" style="margin: 25px 0px;">
+  <button  mat-raised-button color="primary" (click)="updateCourse()">Actualizar curso</button>
+</div>
+
+<div fxLayout="row" class="filters" fxLayoutAlign="center center">
+
+  <mat-form-field fxLayout="column" fxFlex="33" style="margin-right: 10px;">
+    <mat-select placeholder="Curso origen" [(ngModel)]="currentCourse1" (ngModelChange)="findStundentsByCourse1(($event))">
+      <mat-option *ngFor="let course of courses1" [value]="course">
+        {{ course.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field fxLayout="column" fxFlex="33">
+    <mat-select [disabled]="courses2.length == 0" placeholder="Curso objetivo" [(ngModel)]="currentCourse2" (ngModelChange)="findStundentsByCourse2(($event))">
+      <mat-option *ngFor="let course of courses2" [value]="course">
+        {{ course.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<div class="row">
+  <div class="col-sm-5 mx-auto">
+    <div class="card card-outline-primary mb-3" droppable [dropScope]="'swap-target-1'" [dragOverClass]="'drag-target-border'"
+         [dragHintClass]="'drag-hint'" (onDrop)="onList1Drop($event)">
+      <div class="card-header card-inverse card-primary">List 1</div>
+      <div class="card-block scroll-list">
+        <ul class="list-group">
+          <li draggable *ngFor="let student of students1" [dragScope]="'swap-target-2'" [dragClass]="'drag-over'" [dragData]="student" class="list-group-item ">
+            {{student.name}} {{student.surname}} ({{student.course.name}})
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-5 mx-auto">
+    <div class="card card-outline-primary mb-3" droppable [dropScope]="'swap-target-2'" [dragOverClass]="'drag-target-border'"
+         [dragHintClass]="'drag-hint'" (onDrop)="onList2Drop($event)">
+      <div class="card-header card-inverse card-primary">List 2</div>
+      <div class="card-block scroll-list">
+        <ul class="list-group">
+          <li draggable *ngFor="let student of students2" [dragScope]="'swap-target-1'" [dragClass]="'drag-over'" [dragData]="student" class="list-group-item">
+            {{student.name}} {{student.surname}} <span *ngIf="student.status == 1" style="color:red;margin-bottom: 4%;"> ({{student.course.name}}) <mat-icon mat-list-icon>arrow_upward</mat-icon></span> <span *ngIf="student.status != 1"> ({{student.course.name}})</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

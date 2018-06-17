@@ -50,6 +50,8 @@ import { DialogSeeTeacherComponent } from './pages/dialog-see-teacher/dialog-see
 import {DialogSeeTeacherModule} from './pages/dialog-see-teacher/dialog-see-teacher.module';
 import { DialogEditLimitdateComponent } from './pages/dialog-edit-limitdate/dialog-edit-limitdate.component';
 import {DialogEditLimitdateModule} from './pages/dialog-edit-limitdate/dialog-edit-limitdate.module';
+import {UpdateCourseModule} from './pages/update-course/update-course.module';
+import {Ng2DragDropModule} from 'ng2-drag-drop';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,7 @@ import {DialogEditLimitdateModule} from './pages/dialog-edit-limitdate/dialog-ed
     AuthorizationsModule,
     CircularsModule,
     PollsModule,
+    UpdateCourseModule,
     MatOptionModule,
     MatSelectModule,
     MatAutocompleteModule,
@@ -90,6 +93,7 @@ import {DialogEditLimitdateModule} from './pages/dialog-edit-limitdate/dialog-ed
     TooltipModule.forRoot(),
     NgbModule.forRoot(),
     ModalModule.forRoot(),
+    Ng2DragDropModule.forRoot(),
     routing,
   ],
   providers: [
