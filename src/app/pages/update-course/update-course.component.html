@@ -1,7 +1,3 @@
-<div fxLayoutAlign="center center" class="padding-register-button" style="margin: 25px 0px;">
-  <button  mat-raised-button class="color-button-primary" (click)="updateCourse()">Actualizar curso</button>
-</div>
-
 <div fxLayout="row" class="filters" fxLayoutAlign="center center">
 
   <mat-form-field fxLayout="column" fxFlex="33" style="margin-right: 10px;">
@@ -44,7 +40,7 @@
       <div class="card-block">
         <ul class="list-group">
           <li draggable *ngFor="let student of students2" [dragScope]="'swap-target-1'" [dragClass]="'drag-over'" [dragData]="student" class="list-group-item">
-            {{student.name}} {{student.surname}}&nbsp;<span *ngIf="student.status == 1" style="color:red;margin-bottom: 3%;">({{student.course.name}})<mat-icon mat-list-icon>arrow_upward</mat-icon></span>&nbsp;<span *ngIf="student.status != 1">({{student.course.name}})</span>
+            {{student.name}} {{student.surname}} ({{student.course.name}})
           </li>
         </ul>
       </div>

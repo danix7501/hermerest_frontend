@@ -19,14 +19,10 @@ export class UpdateCourseComponent implements OnInit {
   courses2: any[] = [];
 
   students1: any[] = [];
-  studentsAux: any[] = [];
   students2: any[] = [];
 
   currentCourse1: any;
   currentCourse2: any;
-
-  updates: any[] = [];
-  idCourse: any;
 
   constructor(private http: HttpUsingFormDataService, private toastr: ToastrService) { }
 
@@ -55,6 +51,7 @@ export class UpdateCourseComponent implements OnInit {
 
   findStundentsByCourse1(event) {
     this.courses2 = [];
+    this.students2 = [];
     if (event || event === 'update') {
       this.http.get('/courses/' + this.currentCourse1.id + '/students').subscribe((resp: any) => {
         if (resp.content) {
@@ -74,7 +71,7 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   findStundentsByCourse2(event) {
-    if (event) {
+    if (event || event === 'update') {
       this.http.get('/courses/' + this.currentCourse2.id + '/students').subscribe((resp: any) => {
         if (resp.content) {
           for (let i = 0; i < resp.content.students.length; i++) {
@@ -87,30 +84,17 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   onList1Drop(e: DropEvent) {
-    if (e.dragData.status === 1) {
-      e.dragData.status = 0;
       e.dragData.course = this.currentCourse1;
-    } else {
-      e.dragData.status = 2;
-    }
-    if (e.dragData.status !== 2) {
       this.students1.push(e.dragData);
+      this.updateCourse(e.dragData);
       this.removeItem(e.dragData, this.students2);
-    } else {
-      this.toastr.error('No se puede bajar un alumno de curso', 'Error' , {positionClass : 'toast-bottom-right'});
-    }
   }
 
   onList2Drop(e: DropEvent) {
     if (this.currentCourse2) {
-      if (e.dragData.status === 2) {
-        e.dragData.status = 0;
-      } else {
-        e.dragData.status = 1;
-        e.dragData.course = this.currentCourse2;
-      }
-
+      e.dragData.course = this.currentCourse2;
       this.students2.push(e.dragData);
+      this.updateCourse(e.dragData);
       this.removeItem(e.dragData, this.students1);
     } else {
       this.toastr.error('Seleccione un curso objetivo', 'Error' , {positionClass : 'toast-bottom-right'});
@@ -125,30 +109,18 @@ export class UpdateCourseComponent implements OnInit {
     list.splice(index, 1);
   }
 
-  updateCourse() {
-    this.updates = [];
-    for (let i = 0; i < this.students2.length; i++) {
-
-      if (this.students2[i].status === 1) {
-        this.updates.push(this.students2[i].id);
-        this.idCourse = this.students2[i].course.id;
-      }
-    }
-
-    if (this.updates.length > 0) {
+  updateCourse(student) {
       const json = {
-        'studentsIds': this.updates
+        'studentsIds': student.id
       };
-      this.http.put('/courses/' + this.idCourse, json).subscribe((resp: any) => {
+      this.http.put('/courses/' + student.course.id, json).subscribe((resp: any) => {
         if (resp.success) {
-          this.findStundentsByCourse2('update');
-          this.toastr.success('', 'Curso actualizado correctamente' , {positionClass : 'toast-bottom-right'});
+          this.toastr.success('', 'Cambio de curso realizado correctamente' , {positionClass : 'toast-bottom-right'});
         } else {
           this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
         }
-      }, error1 => {this.toastr.error('Ha ocurrido un problema al actualizar el curso', 'Error' , {positionClass : 'toast-bottom-right'});
+      }, error1 => {this.toastr.error('Ha ocurrido un problema al cambiar el alumno de curso', 'Error' , {positionClass : 'toast-bottom-right'});
       });
-    }
   }
 
 }
