@@ -21,6 +21,9 @@ export class UpdateCourseComponent implements OnInit {
   students1: any[] = [];
   students2: any[] = [];
 
+  studentsAux1: any[] = [];
+  studentsAux2: any[] = [];
+
   currentCourse1: any;
   currentCourse2: any;
 
@@ -50,8 +53,12 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   findStundentsByCourse1(event) {
-    this.courses2 = [];
-    this.students2 = [];
+    if (this.currentCourse1 === this.currentCourse2) {
+      this.courses2 = [];
+      this.students2 = [];
+      this.currentCourse2 = null;
+    }
+
     if (event || event === 'update') {
       this.http.get('/courses/' + this.currentCourse1.id + '/students').subscribe((resp: any) => {
         if (resp.content) {
@@ -84,18 +91,38 @@ export class UpdateCourseComponent implements OnInit {
   }
 
   onList1Drop(e: DropEvent) {
-      e.dragData.course = this.currentCourse1;
-      this.students1.push(e.dragData);
-      this.updateCourse(e.dragData);
-      this.removeItem(e.dragData, this.students2);
+    if (e.dragData.length > 0) {
+      this.studentsAux2 = [];
+      for (let i = 0; i < e.dragData.length; i++) {
+        if (e.dragData[i].selected) {
+          e.dragData[i].selected = false;
+          e.dragData[i].course = this.currentCourse1;
+          this.studentsAux2.push(e.dragData[i].id);
+          this.students1.push(e.dragData[i]);
+          this.removeItem(e.dragData[i], this.students2);
+        }
+      }
+      this.updateCourse(this.studentsAux2, this.currentCourse1.id);
+    }
+
+
   }
 
   onList2Drop(e: DropEvent) {
     if (this.currentCourse2) {
-      e.dragData.course = this.currentCourse2;
-      this.students2.push(e.dragData);
-      this.updateCourse(e.dragData);
-      this.removeItem(e.dragData, this.students1);
+        if (e.dragData.length > 0) {
+        this.studentsAux1 = [];
+        for (let i = 0; i < e.dragData.length; i++) {
+          if (e.dragData[i].selected) {
+            e.dragData[i].selected = false;
+            e.dragData[i].course = this.currentCourse2;
+            this.studentsAux1.push(e.dragData[i].id);
+            this.students2.push(e.dragData[i]);
+            this.removeItem(e.dragData[i], this.students1);
+          }
+        }
+        this.updateCourse(this.studentsAux1, this.currentCourse2.id);
+    }
     } else {
       this.toastr.error('Seleccione un curso objetivo', 'Error' , {positionClass : 'toast-bottom-right'});
     }
@@ -109,11 +136,59 @@ export class UpdateCourseComponent implements OnInit {
     list.splice(index, 1);
   }
 
-  updateCourse(student) {
+
+  selectedItem1(student) {
+    if (student.selected) {
+      student['selected'] = false;
+      this.removeItem(student, this.studentsAux1);
+    } else {
+      student['selected'] = true;
+    }
+    if (!this.studentsAux1.includes(student)) {
+      this.studentsAux1.push(student);
+      student['selected'] = true;
+    }
+  }
+
+  selectedItem2(student) {
+    if (student.selected) {
+      student['selected'] = false;
+      this.removeItem(student, this.studentsAux2);
+    } else {
+      student['selected'] = true;
+    }
+    if (!this.studentsAux2.includes(student)) {
+      this.studentsAux2.push(student);
+      student['selected'] = true;
+    }
+  }
+
+  drag1(student) {
+    if (this.currentCourse2) {
+      student.course = this.currentCourse2;
+      this.students2.push(student);
+      this.updateCourse(student.id, this.currentCourse2.id);
+      this.removeItem(student, this.students1);
+    }
+
+  }
+
+  drag2(student) {
+    student.course = this.currentCourse1;
+    this.students1.push(student);
+    this.updateCourse(student.id, this.currentCourse1.id);
+    this.removeItem(student, this.students2);
+  }
+
+  updateCourse(students, idCourse) {
+
+    if (students) {
       const json = {
-        'studentsIds': student.id
+        'studentsIds': students
       };
-      this.http.put('/courses/' + student.course.id, json).subscribe((resp: any) => {
+      this.studentsAux1 = [];
+      this.studentsAux2 = [];
+      this.http.put('/courses/' + idCourse, json).subscribe((resp: any) => {
         if (resp.success) {
           this.toastr.success('', 'Cambio de curso realizado correctamente' , {positionClass : 'toast-bottom-right'});
         } else {
@@ -121,6 +196,8 @@ export class UpdateCourseComponent implements OnInit {
         }
       }, error1 => {this.toastr.error('Ha ocurrido un problema al cambiar el alumno de curso', 'Error' , {positionClass : 'toast-bottom-right'});
       });
+    }
+
   }
 
 }

@@ -25,7 +25,7 @@
       <div class="card-header card-inverse card-primary title-curso" style="text-align: center;">{{currentCourse1 == null ? 'Curso origen sin especificar' : currentCourse1.name}}</div>
       <div class="card-block">
         <ul class="list-group">
-          <li draggable *ngFor="let student of students1" [dragScope]="'swap-target-2'" [dragClass]="'drag-over'" [dragData]="student" class="list-group-item ">
+          <li draggable *ngFor="let student of students1" [dragImage]="studentsAux1.length > 1 ? '../../../assets/img/block-students.png' : ''" [ngClass]="{'background-item': student.selected}" [dragScope]="'swap-target-2'" [dragClass]="'drag-over'" [dragData]="studentsAux1" (click)="selectedItem1(student)" (dragend)="drag1(student)" class="list-group-item ">
             {{student.name}} {{student.surname}} ({{student.course.name}})
           </li>
         </ul>
@@ -36,10 +36,10 @@
   <div class="col-sm-5 mx-auto">
     <div class="card card-outline-primary mb-3" droppable [dropScope]="'swap-target-2'" [dragOverClass]="'drag-target-border'"
          [dragHintClass]="'drag-hint'" (onDrop)="onList2Drop($event)">
-      <div class="card-header card-inverse card-primary title-curso">{{currentCourse2 == null ? 'Curso objetivo sin especificar' : currentCourse2.name}}</div>
+      <div class="card-header card-inverse card-primary title-curso">{{students2 == 0 ? 'Curso objetivo sin especificar' : currentCourse2.name}}</div>
       <div class="card-block">
         <ul class="list-group">
-          <li draggable *ngFor="let student of students2" [dragScope]="'swap-target-1'" [dragClass]="'drag-over'" [dragData]="student" class="list-group-item">
+          <li draggable *ngFor="let student of students2" [dragImage]="studentsAux2.length > 1 ? '../../../assets/img/block-students.png' : ''" [ngClass]="{'background-item': student.selected}" [dragScope]="'swap-target-1'" [dragClass]="'drag-over'" [dragData]="studentsAux2" (click)="selectedItem2(student)" (dragend)="drag2(student)" class="list-group-item">
             {{student.name}} {{student.surname}} ({{student.course.name}})
           </li>
         </ul>
