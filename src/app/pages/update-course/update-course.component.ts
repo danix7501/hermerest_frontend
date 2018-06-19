@@ -54,11 +54,11 @@ export class UpdateCourseComponent implements OnInit {
 
   findStundentsByCourse1(event) {
     if (this.currentCourse1 === this.currentCourse2) {
-      this.courses2 = [];
-      this.students2 = [];
+
       this.currentCourse2 = null;
     }
-
+    this.courses2 = [];
+    this.students2 = [];
     if (event || event === 'update') {
       this.http.get('/courses/' + this.currentCourse1.id + '/students').subscribe((resp: any) => {
         if (resp.content) {
@@ -140,7 +140,7 @@ export class UpdateCourseComponent implements OnInit {
   selectedItem1(student) {
     if (student.selected) {
       student['selected'] = false;
-      this.removeItem(student, this.studentsAux1);
+      // this.removeItem(student, this.studentsAux1);
     } else {
       student['selected'] = true;
     }
@@ -153,7 +153,7 @@ export class UpdateCourseComponent implements OnInit {
   selectedItem2(student) {
     if (student.selected) {
       student['selected'] = false;
-      this.removeItem(student, this.studentsAux2);
+      // this.removeItem(student, this.studentsAux2);
     } else {
       student['selected'] = true;
     }
