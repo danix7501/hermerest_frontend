@@ -13,20 +13,10 @@
       </mat-form-field>
     </div>
     <div fxLayout="row">
-        <mat-form-field fxFlex="50" style="margin-right: 10px">
-          <input matInput placeholder="Nombre de usuario *" formControlName="username" [(ngModel)]="registerTeacherForm['username']">
+        <mat-form-field fxFlex="100" style="margin-right: 10px">
+          <input matInput placeholder="Correo electrónico *" formControlName="username" [(ngModel)]="registerTeacherForm['username']">
           <mat-error>
-            El nombre de usuario es obligatorio
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex="50">
-          <input matInput placeholder="Contraseña *" type="password" formControlName="password" [(ngModel)]="registerTeacherForm['password']">
-          <mat-error *ngIf="registerTeacherForm.get('password').hasError('required')">
-            La contraseña es obligatoria
-          </mat-error>
-          <mat-error *ngIf="registerTeacherForm.get('password').hasError('minlength')">
-            La contraseña tiene que tener mínimo 8 carácteres
+            El correo electrónico del profesor es obligatorio
           </mat-error>
         </mat-form-field>
     </div>
