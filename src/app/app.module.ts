@@ -52,6 +52,7 @@ import { DialogEditLimitdateComponent } from './pages/dialog-edit-limitdate/dial
 import {DialogEditLimitdateModule} from './pages/dialog-edit-limitdate/dialog-edit-limitdate.module';
 import {UpdateCourseModule} from './pages/update-course/update-course.module';
 import {Ng2DragDropModule} from 'ng2-drag-drop';
+import {ResetPasswordModule} from './pages/reset-password/reset-password.module';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import {Ng2DragDropModule} from 'ng2-drag-drop';
     CircularsModule,
     PollsModule,
     UpdateCourseModule,
+    ResetPasswordModule,
     MatOptionModule,
     MatSelectModule,
     MatAutocompleteModule,

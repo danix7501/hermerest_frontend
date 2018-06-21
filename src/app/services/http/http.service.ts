@@ -5,8 +5,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class HttpUsingFormDataService {
 
   // public baseUrl = 'http://localhost/hermerest_backend/web/app_dev.php';
-  public baseUrl = 'http://localhost/hermerest_backend/web';
-  // public baseUrl = 'http://hermerestbackend.ciber.ulpgc.es';
+  // public baseUrl = 'http://localhost/hermerest_backend/web';
+  public baseUrl = 'http://hermerestbackend.ciber.ulpgc.es';
   headers: any;
 
   constructor(private http: HttpClient) {
@@ -40,6 +40,10 @@ export class HttpUsingFormDataService {
   postFile(endpoint: string, formData) {
     return this.http.post(this.baseUrl + endpoint, formData,
       {headers: new HttpHeaders({'enctype': 'multipart/form-data'})});
+  }
+
+  postRaw(endpoint: string, json) {
+    return this.http.post(this.baseUrl + endpoint, json, this.headers);
   }
 
   bodyToString(json) {
