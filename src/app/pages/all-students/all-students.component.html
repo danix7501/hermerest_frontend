@@ -33,7 +33,7 @@
     <!-- course Column -->
     <ng-container matColumnDef="course">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.course.name}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.course == null ? 'Sin especificar' : row.course.name}} </mat-cell>
     </ng-container>
 
 

@@ -67,11 +67,11 @@ export class StudentsComponent implements OnInit {
   deleteStudent(student) {
     this.dialog.open(DialogDeleteComponent, {
       data: {
-        url: '/students/' + student.id,
-        title: 'Eliminar alumno',
-        messageSuccess: 'Alumno eliminado correctamente',
-        messageError: 'Ha ocurrido un problema al intentar eliminar el alumno',
-        question: '¿Esta seguro que quiere eliminar este alumno?'
+        url: '/students/' + student.id + '/course',
+        title: 'Desasociar alumno del curso',
+        messageSuccess: 'Alumno desasociado correctamente',
+        messageError: 'Ha ocurrido un problema al intentar desasociar al alumno',
+        question: '¿Esta seguro que quiere desasociar este alumno?'
       }
     }).afterClosed().subscribe((resp: any) => {
       if (resp && resp === 'delete') {

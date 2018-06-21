@@ -44,7 +44,7 @@ export class DialogAddCourseComponent implements OnInit {
   }
 
   getTeachers() {
-    this.http.get('/centres/' + this.data.idCentre + '/teachers').subscribe((resp: any) => {
+    this.http.get('/centres/' + this.data.idCentre + '/teachers?course=noCourse').subscribe((resp: any) => {
       if (resp.content) {
         this.teachers = resp.content.teachers;
       }
