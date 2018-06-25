@@ -4,7 +4,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import { AppComponent } from './app.component';
 import {LoginModule} from './pages/login/login.module';
 import {appRoutingProviders, routing} from './app.routing';
@@ -53,6 +52,8 @@ import {DialogEditLimitdateModule} from './pages/dialog-edit-limitdate/dialog-ed
 import {UpdateCourseModule} from './pages/update-course/update-course.module';
 import {Ng2DragDropModule} from 'ng2-drag-drop';
 import {ResetPasswordModule} from './pages/reset-password/reset-password.module';
+import {DialogAssociateTeacherComponent} from './pages/dialog-associate-teacher/dialog-associate-teacher.component';
+import {DialogAssociateTeacherModule} from './pages/dialog-associate-teacher/dialog-associate-teacher.module';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import {ResetPasswordModule} from './pages/reset-password/reset-password.module'
     DialogSeePollModule,
     DialogSeeTeacherModule,
     DialogEditLimitdateModule,
+    DialogAssociateTeacherModule,
     AllStudentsModule,
     AuthorizationsModule,
     CircularsModule,
@@ -117,7 +119,8 @@ import {ResetPasswordModule} from './pages/reset-password/reset-password.module'
     DialogSeeCircularComponent,
     DialogSeePollComponent,
     DialogSeeTeacherComponent,
-    DialogEditLimitdateComponent
+    DialogEditLimitdateComponent,
+    DialogAssociateTeacherComponent
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

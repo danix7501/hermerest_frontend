@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  submit: false;
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpUsingFormDataService,
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.loginForm);
   }
 
   login() {

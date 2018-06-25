@@ -13,9 +13,15 @@
       <mat-cell mat-cell *matCellDef="let teacher"> {{teacher.name}} </mat-cell>
     </ng-container>
 
+    <!-- email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Correo electrónico </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let teacher"> {{teacher.username}} </mat-cell>
+    </ng-container>
+
     <!-- course Column -->
     <ng-container matColumnDef="course">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Curso </mat-header-cell>
       <mat-cell *matCellDef="let teacher"> {{teacher.course == null ? 'No tiene asociado un curso' : teacher.course.name}} </mat-cell>
     </ng-container>
 
@@ -23,12 +29,7 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let teacher" style="display:flex !important; justify-content:flex-end !important;">
-
-        <button mat-raised-button [matMenuTriggerFor]="menu">Acciones</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="seeTeacher(teacher)">Ver/Editar</button>
-          <button mat-menu-item (click)="deleteTeacher(teacher)">Eliminar</button>
-        </mat-menu>
+        <button mat-raised-button color="warn" (click)="deleteTeacher(teacher)">Eliminar</button>
       </mat-cell>
     </ng-container>
 

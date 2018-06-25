@@ -71,10 +71,13 @@ export class ChecklistDatabase {
   getStudents(courses) {
     this.http.get('/centres/' + this.data2.idCentre + '/students').subscribe((resp: any) => {
       if (resp.content) {
+        console.log(resp);
         for (let i = 0; i < resp.content.students.length; i++) {
-          this.students.push({id: resp.content.students[i].id,
-            name: resp.content.students[i].name + ' ' + resp.content.students[i].surname,
-            course: resp.content.students[i].course.name});
+          if (resp.content.students[i].course != null) {
+            this.students.push({id: resp.content.students[i].id,
+              name: resp.content.students[i].name + ' ' + resp.content.students[i].surname,
+              course: resp.content.students[i].course.name});
+          }
         }
         this.union(courses, this.students);
       }

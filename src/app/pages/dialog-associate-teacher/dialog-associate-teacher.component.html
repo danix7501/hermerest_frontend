@@ -1,0 +1,20 @@
+<header>
+  <h3 style="text-align: center">Asociar profesor</h3>
+</header>
+<form class="example-container" name="associatedTeacherForm" [formGroup]="associatedTeacherForm">
+  <mat-form-field>
+    <input matInput placeholder="Profesor *" [matAutocomplete]="auto" [formControl]="teacherCtrl" (ngModelChange)="checkForm()">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let teacher of filteredTeachers | async" [value]="teacher">
+        <span>{{ teacher.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>
+      El profesor es obligatorio
+    </mat-error>
+  </mat-form-field>
+</form>
+<div class="footer" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-button type="button" (click)="onNoClick()">Cancelar</button>
+  <button mat-button color="primary" type="submit" [disabled]="!submit" (click)="associateTeacher()">Asociar</button>
+</div>

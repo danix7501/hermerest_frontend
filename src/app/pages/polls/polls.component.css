@@ -62,3 +62,12 @@
 {
   flex: 0 0 40%;
 }
+
+.color-date{
+  color:red;
+}
+
+.color-limitdate{
+  background-color: #FFA051;
+  color: white;
+}

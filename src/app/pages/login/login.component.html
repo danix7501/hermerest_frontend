@@ -1,18 +1,26 @@
-<body class="text-center">
-<form class="form-signin" name="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
-  <h1 class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
-  <mat-form-field class="mat-form-width">
-    <input matInput placeholder="Nombre de usuario" formControlName="username" [(ngModel)]="loginForm['username']">
-  </mat-form-field>
-  <mat-form-field class="mat-form-width">
-    <input matInput type="password" placeholder="Contraseña" formControlName="password" [(ngModel)]="loginForm['password']">
-  </mat-form-field>
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Recordar contraseña
-    </label>
-  </div>
-  <button class="mat-raised-button button-width" type="submit" [disabled]="loginForm.invalid">ENTRAR</button>
-</form>
-</body>
+<div class="text-center fondo">
+</div>
+<div class="center-div">
+  <form class="form-signin" name="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div class="h3 mb-3 font-weight-normal background-header">
+      <span class="align-title">
+        INICIO DE SESIÓN
+      </span>
+      </div>
+      <mat-form-field class="mat-form-width">
+        <input matInput placeholder="Nombre de usuario" formControlName="username" [(ngModel)]="loginForm['username']">
+      </mat-form-field>
+      <mat-form-field class="mat-form-width">
+        <input matInput type="password" placeholder="Contraseña" formControlName="password"
+               [(ngModel)]="loginForm['password']">
+      </mat-form-field>
+      <button class="mat-raised-button button-width" type="submit" [disabled]="loginForm.invalid">ENTRAR</button>
+    </div>
+  </form>
+</div>
+
+
+
+
 

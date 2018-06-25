@@ -39,29 +39,22 @@
     <header style="margin-bottom: 10px">
       Padres/Madres/Tutores legales
     </header>
-    <div fxLayout="column" class="margin-info" *ngIf="parents.length == 0">
-      <div>
-        <div>
-          <span class="h5">Nombre: </span>Sin especificar
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="h5">Teléfono: </span>Sin especificar
-        </div>
-      </div>
+    <div class="margin-info" *ngIf="parents.length == 0">
+      <mat-list>
+        <mat-list-item>
+          <h4 mat-line><strong>Nombre:</strong>Sin especificar</h4>
+          <h4 mat-line><strong>Teléfono:</strong>Sin especificar</h4>
+        </mat-list-item>
+      </mat-list>
     </div>
-    <div fxLayout="column" class="margin-info" *ngFor="let parent of parents">
-      <div>
-        <div>
-          <span class="h5">Nombre: </span>{{parent.name}}
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="h5">Teléfono: </span>{{parent.telephone}}
-        </div>
-      </div>
+    <div class="margin-info">
+      <mat-list>
+        <mat-list-item *ngFor="let parent of parents">
+          <mat-icon mat-list-icon (click)="disassociateParent(parent)" style="cursor: pointer;">clear</mat-icon>
+          <h4 mat-line><strong>Nombre:</strong>{{parent.name}}</h4>
+          <h4 mat-line><strong>Teléfono:</strong>{{parent.telephone}}</h4>
+        </mat-list-item>
+      </mat-list>
     </div>
   </div>
 </div>

@@ -33,7 +33,7 @@
                  (change)="handleFileInput($event.target.files)" #fileInput>
           <button mat-raised-button type="button" class="button-width" color="primary" (click)="fileInput.click()">Seleccionar documento</button>
           <div *ngIf="fileToUpload !== null">
-            <span>{{nameFile}}</span>
+            <span style="margin-left: 15px;">{{nameFile}}</span>
           </div>
         </div>
       </div>

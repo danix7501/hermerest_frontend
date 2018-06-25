@@ -18,6 +18,7 @@ export class DialogSeeAuthorizationComponent implements OnInit {
 
   ngOnInit() {
     this.getRepliesAuthorization();
+    console.log(this.data.authorization);
   }
 
   getRepliesAuthorization() {

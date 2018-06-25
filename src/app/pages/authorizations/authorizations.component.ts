@@ -20,6 +20,7 @@ export class AuthorizationsComponent implements OnInit {
   authorizationsAux: any[] = [];
   monthSending: any;
   statusAuthorization: any;
+  currentDate: any;
   months =
       [{value: '1', text: 'Enero'},
       {value: '2', text: 'Febrero'},
@@ -47,6 +48,7 @@ export class AuthorizationsComponent implements OnInit {
   constructor(private http: HttpUsingFormDataService, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.currentDate = new Date();
     const decodeToken = new JwtHelper().decodeToken(localStorage.getItem('token'));
     this.idAdministrator = decodeToken.id;
     this.getAdministrator();
@@ -65,8 +67,10 @@ export class AuthorizationsComponent implements OnInit {
     this.http.get('/centres/' + idCentre + '/authorizations').subscribe((resp: any) => {
       if (resp.content) {
         for (let i = 0; i < resp.content.authorizations.length; i++) {
+          resp.content.authorizations[i]['formatLimitDate'] = new Date(resp.content.authorizations[i].limitDate.date);
           this.authorizations.push(resp.content.authorizations[i]);
         }
+        console.log(this.authorizations);
         this.authorizationsAux = this.authorizations;
         this.dataSource = new MatTableDataSource(this.authorizations);
         this.dataSource.paginator = this.paginator;

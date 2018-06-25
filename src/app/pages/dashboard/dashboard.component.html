@@ -41,15 +41,23 @@
   <mat-drawer-content>
     <div>
     <mat-toolbar>
-      <div (click)="drawer.toggle()">
-        <mat-icon class="size-icon cursor" mat-list-icon>view_headline</mat-icon>
-      </div>
-      <div class="linea-vertical"></div>
-      <span class="user-connect">Conectado: {{nameAdministrador}}</span>
+      <!--<div (click)="drawer.toggle()">-->
+        <!--<mat-icon class="size-icon cursor" mat-list-icon>view_headline</mat-icon>-->
+      <!--</div>-->
+      <!--<div class="linea-vertical"></div>-->
+      <span class="user-connect">Centro: {{nameCentre}}</span>
       <span class="example-spacer"></span>
-      <div class="cursor">
-        <mat-icon mat-list-icon matTooltip="Cerrar sesión" [matTooltipPosition]="'left'" (click)="logout()">input</mat-icon>
-      </div>
+        <button mat-button [matMenuTriggerFor]="menu">
+          <div fxLayout="row" class="cursor" fxLayoutAlign="center center">
+          <mat-icon mat-list-icon>person</mat-icon>
+          <div style="margin-left: 10px">{{nameAdministrador}}</div>
+          <mat-icon fxHide.xs>keyboard_arrow_down</mat-icon>
+          </div>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="myAccount()"> <mat-icon mat-list-icon>account_box</mat-icon>Mi cuenta</button>
+          <button mat-menu-item (click)="logout()"><mat-icon mat-list-icon>input</mat-icon>Cerrar sesión</button>
+        </mat-menu>
     </mat-toolbar>
   </div>
 

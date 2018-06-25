@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {JwtHelper} from 'angular2-jwt';
+import {HttpUsingFormDataService} from '../../services/http/http.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +11,8 @@ import {JwtHelper} from 'angular2-jwt';
 export class DashboardComponent implements OnInit {
 
   nameAdministrador: any;
+  idAdministrator: any;
+  nameCentre: any;
   showComponent: any;
   idCourse: any;
   idCentre: any;
@@ -17,7 +20,7 @@ export class DashboardComponent implements OnInit {
   idStudent: any;
   backView: any;
   open: boolean;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpUsingFormDataService) { }
 
   ngOnInit() {
     this.open = true;
@@ -26,7 +29,14 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/login']);
     }
     this.nameAdministrador = new JwtHelper().decodeToken(localStorage.getItem('token')).name;
+    this.idAdministrator = new JwtHelper().decodeToken(localStorage.getItem('token')).id;
+    this.getAdministrator();
+  }
 
+  getAdministrator() {
+    this.http.get('/administrators/' + this.idAdministrator).subscribe((resp: any) => {
+      this.nameCentre = resp.content.centre.name;
+    });
   }
 
   logout() {
@@ -65,6 +75,10 @@ export class DashboardComponent implements OnInit {
     this.idStudent = event.id;
     this.showComponent = 3;
     this.backView = 4;
+  }
+
+  myAccount() {
+
   }
 
 }

@@ -19,6 +19,7 @@ export class PollsComponent implements OnInit {
   pollsAux: any[] = [];
   monthSending: any;
   statusPoll: any;
+  currentDate: any;
   months =
     [{value: '1', text: 'Enero'},
       {value: '2', text: 'Febrero'},
@@ -46,6 +47,7 @@ export class PollsComponent implements OnInit {
   constructor(private http: HttpUsingFormDataService, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.currentDate = new Date();
     const decodeToken = new JwtHelper().decodeToken(localStorage.getItem('token'));
     this.idAdministrator = decodeToken.id;
     this.getAdministrator();
@@ -64,6 +66,7 @@ export class PollsComponent implements OnInit {
     this.http.get('/centres/' + idCentre + '/polls').subscribe((resp: any) => {
       if (resp.content) {
         for (let i = 0; i < resp.content.polls.length; i++) {
+          resp.content.polls[i]['formatLimitDate'] = new Date(resp.content.polls[i].limitDate.date);
           this.polls.push(resp.content.polls[i]);
         }
         this.pollsAux = this.polls;

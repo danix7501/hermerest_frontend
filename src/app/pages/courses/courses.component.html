@@ -1,6 +1,6 @@
 <div fxLayout="row">
   <div fxLayoutAlign="center center" class="size-title">
-    Centro: {{nameCentre}}
+    Cursos
   </div>
   <span class="example-spacer"></span>
   <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" style="margin-right: 10px">
@@ -8,7 +8,7 @@
   <input hidden type="file"
          id="file"
          (change)="handleFileInput($event.target.files)" accept=".csv" #fileInput>
-  <button mat-raised-button class="size-button" style="margin-right: 10px;" (click)="fileInput.click()">Importar curso</button>
+  <button mat-raised-button class="size-button" matTooltip="Formato .csv" [matTooltipPosition]="'left'" style="margin-right: 10px;" (click)="fileInput.click()">Importar curso</button>
   </div>
 </div>
 <div class="example-container mat-elevation-z8">

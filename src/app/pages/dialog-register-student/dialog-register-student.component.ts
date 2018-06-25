@@ -27,7 +27,7 @@ export class DialogRegisterStudentComponent implements OnInit {
     this.registerStudentForm = this.formBuilder.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      course: ['', Validators.required],
+      course: [''],
       centre: [''],
       nameParents: [''],
       telephone: [''],

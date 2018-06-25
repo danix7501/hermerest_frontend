@@ -10,6 +10,9 @@
     <div>
       <span class="dates">Fecha límite: {{data.authorization.limitDate.date | date:'dd-MM-yyyy'}}</span>
     </div>
+    <div>
+      <span class="dates">Fichero adjunto: </span> {{data.authorization.attachments == null ? 'Este mensaje no tiene fichero adjunto' : data.authorization.attachments.name}}
+    </div>
   </div>
   <div fxFlex="60" fxLayout="column" >
     <span class="dates">Descripción</span>

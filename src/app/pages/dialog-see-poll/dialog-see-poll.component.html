@@ -7,6 +7,9 @@
     <div fxLayout="column" fxFlex>
         <span class="dates">Fecha de envío: {{data.poll.sendingDate.date | date:'dd-MM-yyyy' }}</span>
         <span class="dates">Fecha límite: {{data.poll.limitDate.date | date:'dd-MM-yyyy'}}</span>
+      <div>
+        <span class="dates">Fichero adjunto: </span> {{data.poll.attachments == null ? 'Este mensaje no tiene fichero adjunto' : data.poll.attachments.name}}
+      </div>
     </div>
     <div fxLayout="column" fxFlex style="margin-top: 25px; padding-right: 20px;">
       <span class="dates">Descripción</span>

@@ -19,14 +19,11 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Seleccione un curso *" formControlName="course" [(ngModel)]="registerStudentForm['course']">
+        <mat-select placeholder="Seleccione un curso" formControlName="course" [(ngModel)]="registerStudentForm['course']">
           <mat-option *ngFor="let course of courses" [value]="course.id">
             {{ course.name }}
           </mat-option>
         </mat-select>
-        <mat-error>
-          El curso es obligatorio
-        </mat-error>
       </mat-form-field>
     </div>
 

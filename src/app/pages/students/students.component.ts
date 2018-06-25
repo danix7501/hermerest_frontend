@@ -3,6 +3,8 @@ import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogDeleteComponent} from '../dialog-delete/dialog-delete.component';
 import {DialogAddStudentComponent} from '../dialog-add-student/dialog-add-student.component';
+import {ToastrService} from 'ngx-toastr';
+import {DialogAssociateTeacherComponent} from '../dialog-associate-teacher/dialog-associate-teacher.component';
 
 @Component({
   selector: 'app-students',
@@ -12,6 +14,7 @@ import {DialogAddStudentComponent} from '../dialog-add-student/dialog-add-studen
 export class StudentsComponent implements OnInit {
 
   students: any[] = [];
+  statusTeacher: any;
 
   displayedColumns = ['name', 'surname', 'actions'];
   dataSource: any;
@@ -24,9 +27,10 @@ export class StudentsComponent implements OnInit {
   @Output('update') change = new EventEmitter();
 
 
-  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog) { }
+  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.getCourse();
     this.getStudentsOfCourse();
   }
 
@@ -60,6 +64,23 @@ export class StudentsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.students);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      }
+    });
+  }
+
+  getCourse() {
+    this.http.get('/courses/' +  this.idCourse).subscribe((resp: any) => {
+      if (resp.success) {
+        this.statusTeacher = resp.content.teacher;
+      }
+    });
+  }
+
+  associateTeacher() {
+    this.dialog.open(DialogAssociateTeacherComponent, {
+      data: {
+        idCourse: this.idCourse,
+        idCentre: this.idCentre
       }
     });
   }

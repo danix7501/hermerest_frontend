@@ -17,7 +17,7 @@ export class TeachersComponent implements OnInit {
   idAdministrator: any;
   idCentre: any;
 
-  displayedColumns = ['name', 'course', 'actions'];
+  displayedColumns = ['name', 'course', 'email', 'actions'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

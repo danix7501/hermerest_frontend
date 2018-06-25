@@ -3,6 +3,7 @@ import {HttpUsingFormDataService} from '../../services/http/http.service';
 import {MatDialog} from '@angular/material';
 import {DialogEditStudentComponent} from '../dialog-edit-student/dialog-edit-student.component';
 import {DialogAssociatedParentsComponent} from '../dialog-associated-parents/dialog-associated-parents.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile-student',
@@ -24,7 +25,7 @@ export class ProfileStudentComponent implements OnInit {
   @Output('update') change = new EventEmitter();
 
 
-  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog) { }
+  constructor(private http: HttpUsingFormDataService, public dialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getStundent();
@@ -84,8 +85,21 @@ export class ProfileStudentComponent implements OnInit {
     });
   }
 
+  disassociateParent(parent) {
+    this.http.delete('/parents/' + parent.id + '/students/' + this.idStudent).subscribe((resp: any) => {
+        if (resp.success) {
+          this.toastr.success('', 'Padre desasociado del hijo correctamente' , {positionClass : 'toast-bottom-right'});
+          const index = this.parents.indexOf(parent);
+          this.parents.splice(index, 1);
+        } else {
+          this.toastr.error(resp.error, 'Error' , {positionClass : 'toast-bottom-right'});
+        }
+      },
+      error => this.toastr.error('Ha ocurrido un problema al intentar desasociar el padre', 'Error',{positionClass : 'toast-bottom-right'})
+    );
+  }
+
   back() {
     this.change.emit(this.backView);
   }
-
 }
