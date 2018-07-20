@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {JwtHelper} from 'angular2-jwt';
 import {HttpUsingFormDataService} from '../../services/http/http.service';
+import {MatDialog} from "@angular/material";
+import {ChangeInformationComponent} from "../change-information/change-information.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +22,7 @@ export class DashboardComponent implements OnInit {
   idStudent: any;
   backView: any;
   open: boolean;
-  constructor(private router: Router, private http: HttpUsingFormDataService) { }
+  constructor(private router: Router, private http: HttpUsingFormDataService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.open = true;
@@ -78,7 +80,12 @@ export class DashboardComponent implements OnInit {
   }
 
   myAccount() {
-
+    this.dialog.open(ChangeInformationComponent, {
+      width: '300px'
+    }).afterClosed().subscribe((resp: any) => {
+      if (resp !== 'cancel') {
+        this.nameAdministrador = resp.name;
+      }
+    });
   }
-
 }

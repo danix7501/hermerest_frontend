@@ -54,6 +54,8 @@ import {Ng2DragDropModule} from 'ng2-drag-drop';
 import {ResetPasswordModule} from './pages/reset-password/reset-password.module';
 import {DialogAssociateTeacherComponent} from './pages/dialog-associate-teacher/dialog-associate-teacher.component';
 import {DialogAssociateTeacherModule} from './pages/dialog-associate-teacher/dialog-associate-teacher.module';
+import { ChangeInformationComponent } from './pages/change-information/change-information.component';
+import {ChangeInformationModule} from './pages/change-information/change-information.module';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import {DialogAssociateTeacherModule} from './pages/dialog-associate-teacher/dia
     DialogSeeTeacherModule,
     DialogEditLimitdateModule,
     DialogAssociateTeacherModule,
+    ChangeInformationModule,
     AllStudentsModule,
     AuthorizationsModule,
     CircularsModule,
@@ -120,7 +123,8 @@ import {DialogAssociateTeacherModule} from './pages/dialog-associate-teacher/dia
     DialogSeePollComponent,
     DialogSeeTeacherComponent,
     DialogEditLimitdateComponent,
-    DialogAssociateTeacherComponent
+    DialogAssociateTeacherComponent,
+    ChangeInformationComponent
   ],
   bootstrap: [AppComponent],
   exports: [BsDropdownModule, TooltipModule, ModalModule]

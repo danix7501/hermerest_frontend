@@ -115,7 +115,9 @@ export class AllStudentsComponent implements OnInit {
       this.dataSource.sort = this.sort;
     } else {
       this.students = this.studentsAux.filter((student) => {
-        return student.course.id === this.currentCourse;
+        if (student.course){
+          return student.course.id === this.currentCourse;
+        }
       });
       this.dataSource = new MatTableDataSource(this.students);
       this.dataSource.paginator = this.paginator;
